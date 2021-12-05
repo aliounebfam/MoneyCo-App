@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -67,8 +68,11 @@ dependencies {
     // Dépendance Material Icons pour jetpack compose
     implementation "androidx.compose.material:material-icons-extended:$compose_version"
 
-    
+    // Dépendance pour SplashScreen
     implementation 'androidx.core:core-splashscreen:1.0.0-alpha01'
+
+    // Dépendance Firebase authentification
+    implementation 'com.google.firebase:firebase-auth-ktx:21.0.1'
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
