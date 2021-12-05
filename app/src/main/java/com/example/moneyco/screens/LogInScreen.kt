@@ -14,23 +14,23 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun HomeScreen(navController: NavController) {
+fun LogInScreen(navController: NavController) {
     Box(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = "Home Screen",
+            text = "Log in Screen",
             style = TextStyle(
-                fontWeight = FontWeight(25),
+                fontWeight = FontWeight(45),
                 fontSize = MaterialTheme.typography.h3.fontSize
             )
         )
     }
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
-fun HomeScreenPreview() {
-    HomeScreen(navController = rememberNavController())
+fun LogInScreenPreview() {
+    LogInScreen(navController = rememberNavController())
 }
