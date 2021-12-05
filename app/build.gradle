@@ -58,10 +58,13 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.0'
     implementation 'androidx.activity:activity-compose:1.4.0'
 
-    // Dépendance 'Lottie files' pour les animations
+    // Dépendance Navigation pour jetpack compose
+    implementation "androidx.navigation:navigation-compose:2.4.0-beta02"
+
+    // Dépendance 'Lottie files' pour les animations dans jetpack compose
     implementation "com.airbnb.android:lottie-compose:$lottieVersion"
 
-    // Dépendance Material Icons
+    // Dépendance Material Icons pour jetpack compose
     implementation "androidx.compose.material:material-icons-extended:$compose_version"
 
     testImplementation 'junit:junit:4.+'
