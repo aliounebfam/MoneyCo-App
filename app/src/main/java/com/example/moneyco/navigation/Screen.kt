@@ -1,8 +1,12 @@
 package com.example.moneyco.navigation
 
+
 const val ROOT_ROUTE = "root"
 const val AUTH_ROUTE = "auth"
-const val HOME_ROUTE = "home"
+const val MAIN_ROUTE = "home"
+
+
+const val LOGIN_PHONE_NUMBER = "phone"
 
 sealed class Screen(val route: String) {
     object LogIn : Screen(route = "logIn_screen")
