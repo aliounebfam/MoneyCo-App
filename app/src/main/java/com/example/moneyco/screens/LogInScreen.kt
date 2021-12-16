@@ -1,5 +1,6 @@
 package com.example.moneyco.screens
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.telephony.TelephonyManager
@@ -218,6 +219,8 @@ fun LogInScreen(
                                 )
                             val isValid = phoneUtil.isValidNumber(phone)
                             if (isValid) {
+                                val activity = (context as? Activity)
+                                activity?.finish()
                                 context.startActivity(
                                     Intent(
                                         context,

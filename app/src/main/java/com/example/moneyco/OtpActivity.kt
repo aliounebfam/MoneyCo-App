@@ -86,10 +86,10 @@ class OtpActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     setupOTP(phone)
                     val i = Intent(this, MainActivity::class.java)
+                    finish()
                     startActivity(i)
                     Toast.makeText(applicationContext, "Vérification réusssie", Toast.LENGTH_SHORT)
                         .show()
-
 
                 } else {
                     Toast.makeText(applicationContext, "Mauvais code saisi", Toast.LENGTH_SHORT)

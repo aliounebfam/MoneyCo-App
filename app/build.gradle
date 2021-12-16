@@ -88,7 +88,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-firestore-ktx'
     implementation 'com.google.firebase:firebase-analytics-ktx'
 
-    //
+    // Bibliothèque pour analyser, formater et valider les numéros de téléphone internationaux.
     implementation 'io.michaelrocks:libphonenumber-android:8.10.16'
 
     testImplementation 'junit:junit:4.+'
