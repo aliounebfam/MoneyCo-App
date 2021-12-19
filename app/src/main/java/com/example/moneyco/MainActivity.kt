@@ -3,6 +3,7 @@ package com.example.moneyco
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.NavHostController
@@ -17,13 +18,14 @@ class MainActivity : AppCompatActivity() {
     lateinit var navController: NavHostController
 
 
+    @ExperimentalAnimationApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         installSplashScreen()
         setContent {
             MoneyCoTheme {
 
-            navController = rememberNavController()
+                navController = rememberNavController()
                 SetupNavGraph(navController = navController)
             }
         }

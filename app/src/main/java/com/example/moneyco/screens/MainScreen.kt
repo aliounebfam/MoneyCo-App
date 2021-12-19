@@ -1,12 +1,21 @@
 package com.example.moneyco.screens
 
-import androidx.compose.foundation.layout.RowScope
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.NavDestination
-import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -14,10 +23,13 @@ import androidx.navigation.compose.rememberNavController
 import com.example.moneyco.navigation.BottomBarScreen
 import com.example.moneyco.navigation.nav_graph.BottomNavGraph
 
+@ExperimentalAnimationApi
 @ExperimentalMaterialApi
 @Composable
-fun MainScreen(navController: NavController) {
+fun MainScreen() {
     val navController = rememberNavController()
+    val context = LocalContext.current
+
     Scaffold(
         bottomBar = {
             BottomBar(navController = navController)
@@ -27,6 +39,7 @@ fun MainScreen(navController: NavController) {
     }
 }
 
+@ExperimentalAnimationApi
 @Composable
 fun BottomBar(navController: NavController) {
     val screens = listOf(
@@ -39,48 +52,67 @@ fun BottomBar(navController: NavController) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
 
-    BottomNavigation {
+    Row(
+        modifier = Modifier
+            .background(MaterialTheme.colors.primaryVariant.copy(alpha = 0.9f))
+            .padding(7.dp)
+            .fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceAround,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+
         screens.forEach { screen ->
-            if (currentDestination != null) {
-                AddItem(
-                    screen = screen,
-                    currentDestination = currentDestination,
-                    navController = navController as NavHostController
+            CustomBottomNavigationItem(
+                screen = screen,
+                isSelected = screen.route == currentDestination?.route,
+                navController = navController as NavHostController
+            )
+        }
+
+    }
+}
+
+@ExperimentalAnimationApi
+@Composable
+fun CustomBottomNavigationItem(
+    screen: BottomBarScreen,
+    navController: NavHostController,
+    isSelected: Boolean
+) {
+
+    val background =
+        if (isSelected) MaterialTheme.colors.primary.copy(alpha = 0.3f) else Color.Transparent
+    val contentColor =
+        if (isSelected) MaterialTheme.colors.primary else MaterialTheme.colors.secondaryVariant
+
+    Box(
+        modifier = Modifier
+            .clip(CircleShape)
+            .background(background)
+            .clickable(onClick = {
+                navController.navigate(screen.route) {
+                    popUpTo(navController.graph.findStartDestination().id)
+                    launchSingleTop = true
+                }
+            })
+    ) {
+        Row(
+            modifier = Modifier
+                .padding(12.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(4.dp)
+        ) {
+            Icon(
+                imageVector = screen.icon,
+                contentDescription = null,
+                tint = contentColor
+            )
+            AnimatedVisibility(visible = isSelected) {
+                Text(
+                    text = screen.title,
+                    color = Color.White
                 )
             }
         }
     }
-
 }
-
-
-@Composable
-fun RowScope.AddItem(
-    screen: BottomBarScreen,
-    currentDestination: NavDestination,
-    navController: NavHostController
-) {
-    BottomNavigationItem(
-        label = {
-            Text(text = screen.title)
-        },
-        icon = {
-            Icon(
-                imageVector = screen.icon,
-                contentDescription = "Navigation icon"
-            )
-        },
-        selected = currentDestination.hierarchy.any {
-            it.route == screen.route
-        },
-        unselectedContentColor = LocalContentColor.current.copy(alpha = ContentAlpha.disabled),
-        onClick = {
-            navController.navigate(screen.route) {
-                popUpTo(navController.graph.findStartDestination().id)
-                launchSingleTop = true
-            }
-        }
-
-    )
-}
-

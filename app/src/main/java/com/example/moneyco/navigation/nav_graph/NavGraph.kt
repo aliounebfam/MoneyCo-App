@@ -1,5 +1,6 @@
 package com.example.moneyco.navigation.nav_graph
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
@@ -11,6 +12,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
 
+@ExperimentalAnimationApi
 @ExperimentalMaterialApi
 @Composable
 fun SetupNavGraph(navController: NavHostController) {
@@ -28,6 +30,6 @@ fun SetupNavGraph(navController: NavHostController) {
         route = ROOT_ROUTE
     ) {
         authNavGraph(navController = navController)
-        mainNavGraph(navController = navController)
+        mainNavGraph()
     }
 }
