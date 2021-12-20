@@ -1,5 +1,6 @@
 package com.example.moneyco.navigation.nav_graph
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
@@ -11,6 +12,7 @@ import com.example.moneyco.screens.LogInScreen
 import com.example.moneyco.screens.SignUpScreen
 
 
+@ExperimentalAnimationApi
 @ExperimentalMaterialApi
 fun NavGraphBuilder.authNavGraph(
     navController: NavHostController

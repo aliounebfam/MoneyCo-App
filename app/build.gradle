@@ -91,6 +91,8 @@ dependencies {
     // Bibliothèque pour analyser, formater et valider les numéros de téléphone internationaux.
     implementation 'io.michaelrocks:libphonenumber-android:8.10.16'
 
+    //Une bibliothèque de chargement d'images pour Android soutenue par Kotlin Coroutines
+    implementation("io.coil-kt:coil-compose:1.4.0")
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

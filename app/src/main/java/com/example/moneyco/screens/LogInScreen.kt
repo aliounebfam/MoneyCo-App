@@ -8,6 +8,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -32,13 +33,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.moneyco.OtpActivity
+import com.example.moneyco.OtpLoginActivity
 import com.example.moneyco.R
 import com.example.moneyco.components.DividerLogin
 import com.example.moneyco.components.SignInButtonUi
 import com.example.moneyco.components.TextAlreadyAccount
 import com.example.moneyco.model.AuthViewModel
-import com.example.moneyco.model.setupGoogle
 import com.example.moneyco.navigation.AUTH_ROUTE
 import com.example.moneyco.navigation.MAIN_ROUTE
 import com.example.moneyco.navigation.Screen
@@ -54,8 +54,9 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import io.michaelrocks.libphonenumber.android.PhoneNumberUtil
 
-const val PHONE_NUMBER = ""
+const val NUMBER_PHONE = ""
 
+@ExperimentalAnimationApi
 @ExperimentalMaterialApi
 @Composable
 fun LogInScreen(
@@ -114,6 +115,9 @@ fun LogInScreen(
                 .padding(
                     top = 30.dp
                 )
+                .verticalScroll(
+                    rememberScrollState()
+                )
         ) {
             Image(
                 painter = painterResource(id = R.drawable.moneyco_icon),
@@ -154,9 +158,10 @@ fun LogInScreen(
         )
         {
             Column(
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
 
-            ) {
+
+                ) {
 
                 Spacer(modifier = Modifier.height(22.dp))
 
@@ -164,7 +169,10 @@ fun LogInScreen(
                     Text(
                         text = ("Ravie de vous revoir !"),
                         fontFamily = Merienda,
-                        style = TextStyle(fontWeight = FontWeight.Bold, color = Color(0xFF1D2424)),
+                        style = TextStyle(
+                            fontWeight = FontWeight.Bold,
+                            color = Color(0xFF1D2424)
+                        ),
                         fontSize = 23.5.sp,
                         textAlign = TextAlign.Center,
                         modifier = Modifier.fillMaxWidth(1f)
@@ -224,10 +232,10 @@ fun LogInScreen(
                                 context.startActivity(
                                     Intent(
                                         context,
-                                        OtpActivity::class.java
+                                        OtpLoginActivity::class.java
                                     ).apply {
                                         putExtra(
-                                            PHONE_NUMBER,
+                                            NUMBER_PHONE,
                                             "+${phone.countryCode}${phone.nationalNumber}"
                                         )
                                     })
@@ -289,7 +297,7 @@ fun LogInScreen(
                         if (auth.currentUser?.displayName != null) {
                             when (state.status) {
                                 LoadingState.Status.SUCCESS -> {
-                                    setupGoogle()
+
                                     navController.navigate(MAIN_ROUTE) {
                                         popUpTo(AUTH_ROUTE) {
                                             inclusive = true
@@ -342,4 +350,5 @@ fun LogInScreen(
 
     }
 }
+
 

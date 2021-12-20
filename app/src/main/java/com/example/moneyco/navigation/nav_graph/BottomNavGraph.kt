@@ -1,5 +1,6 @@
 package com.example.moneyco.navigation.nav_graph
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
@@ -11,6 +12,7 @@ import com.example.moneyco.screens.ProfilScreen
 import com.example.moneyco.screens.TacheScreen
 import com.example.moneyco.screens.TransactionScreen
 
+@ExperimentalAnimationApi
 @ExperimentalMaterialApi
 @Composable
 fun BottomNavGraph(navController: NavHostController) {

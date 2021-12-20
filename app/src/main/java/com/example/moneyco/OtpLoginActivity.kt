@@ -10,9 +10,8 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.example.moneyco.model.setupOTP
+import com.example.moneyco.screens.NUMBER_PHONE
 import com.example.moneyco.screens.OtpScreen
-import com.example.moneyco.screens.PHONE_NUMBER
 import com.example.moneyco.ui.theme.MoneyCoTheme
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
@@ -21,9 +20,10 @@ import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
 import java.util.concurrent.TimeUnit
 
-@ExperimentalMaterialApi
+
 @ExperimentalAnimationApi
-class OtpActivity : AppCompatActivity() {
+@ExperimentalMaterialApi
+class OtpLoginActivity : AppCompatActivity() {
     lateinit var navController: NavHostController
     private val mAuth = FirebaseAuth.getInstance()
     var verificationOtp = ""
@@ -33,7 +33,7 @@ class OtpActivity : AppCompatActivity() {
         setContent {
             MoneyCoTheme {
                 navController = rememberNavController()
-                val phone = intent.getStringExtra(PHONE_NUMBER)
+                val phone = intent.getStringExtra(NUMBER_PHONE)
                 if (phone != null) {
                     Toast.makeText(
                         LocalContext.current,
@@ -50,6 +50,7 @@ class OtpActivity : AppCompatActivity() {
         }
 
     }
+
 
     private fun send(mobileNum: String) {
         val options = PhoneAuthOptions.newBuilder(mAuth)
@@ -87,7 +88,6 @@ class OtpActivity : AppCompatActivity() {
         FirebaseAuth.getInstance().signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    setupOTP(phone)
                     val i = Intent(this, MainActivity::class.java)
                     finish()
                     startActivity(i)
