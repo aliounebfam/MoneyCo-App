@@ -21,19 +21,30 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 
 @Composable
 fun EditableTextField(
     content: String,
-    value: String,
     label: String,
     icon: ImageVector,
+    field: String,
     descriptionIcon: String,
     keyboardType: KeyboardType = KeyboardType.Text,
     imeAction: ImeAction = ImeAction.Next
 ) {
+
+    val db = Firebase.firestore
+    val currentUser = Firebase.auth.currentUser
+    val docRef = db.collection("users").document(currentUser!!.uid)
+
     var text by remember { mutableStateOf(content) }
+    val value by remember { mutableStateOf(content) }
     var enable by remember { mutableStateOf(false) }
+
+
     Column {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -61,14 +72,21 @@ fun EditableTextField(
                 colors = TextFieldDefaults.outlinedTextFieldColors(
                     leadingIconColor = MaterialTheme.colors.secondaryVariant,
                     disabledBorderColor = MaterialTheme.colors.secondaryVariant,
-                    disabledLabelColor = MaterialTheme.colors.primary,
-                    disabledLeadingIconColor = MaterialTheme.colors.secondaryVariant
+                    disabledLabelColor = MaterialTheme.colors.secondaryVariant,
+                    disabledLeadingIconColor = MaterialTheme.colors.secondaryVariant,
+                    unfocusedLabelColor = MaterialTheme.colors.primary
                 ),
                 shape = RoundedCornerShape(9.dp)
             )
             if (!enable) {
-                IconButton(onClick = { enable = !enable }) {
-                    Icon(Icons.Outlined.Edit, "edit", tint = MaterialTheme.colors.secondaryVariant)
+                IconButton(onClick = {
+                    enable = !enable
+                }) {
+                    Icon(
+                        Icons.Outlined.Edit,
+                        "edit",
+                        tint = MaterialTheme.colors.secondaryVariant
+                    )
                 }
             }
         }
@@ -78,17 +96,16 @@ fun EditableTextField(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.Center
-
             ) {
-
-                if (text != "") {
-                    IconButton(onClick = { enable = !enable }) {
-                        Icon(Icons.Rounded.Done, "edit", tint = Color(0xFF388E3C))
-                    }
+                IconButton(onClick = {
+                    docRef.update(field, text)
+                    enable = !enable
+                }) {
+                    Icon(Icons.Rounded.Done, "done", tint = Color(0xFF388E3C))
                 }
                 if (text != value) {
                     IconButton(onClick = { text = value }) {
-                        Icon(Icons.Rounded.Clear, "edit", tint = Color.Red)
+                        Icon(Icons.Rounded.Clear, "clear", tint = Color.Red)
                     }
                 }
             }

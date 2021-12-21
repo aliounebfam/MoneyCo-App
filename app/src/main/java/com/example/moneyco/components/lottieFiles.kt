@@ -20,18 +20,12 @@ fun lottieFiles(modifier: Modifier = Modifier) {
         {
             customView
         },
-
-//        modifier = modifier
-//            .width(150.dp)
-//            .height(150.dp)
-//            .clip(CircleShape)
-//            .background(Color.LightGray)
+        modifier = modifier
     ) { view ->
         with(view) {
             setAnimation(R.raw.avatar_lottie)
             playAnimation()
             repeatCount = LottieDrawable.INFINITE
-//            foregroundGravity = Gravity.CENTER
         }
     }
 
