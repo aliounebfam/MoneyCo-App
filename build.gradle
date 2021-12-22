@@ -4,6 +4,7 @@ buildscript {
         compose_version = '1.0.1'
         lottieVersion = '4.2.2'
     }
+
     repositories {
         google()
         mavenCentral()
