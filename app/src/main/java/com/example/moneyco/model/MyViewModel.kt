@@ -1,4 +1,4 @@
-package com.example.moneyco.utils
+package com.example.moneyco.model
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

@@ -1,5 +1,7 @@
 package com.example.moneyco.navigation.nav_graph
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
@@ -10,8 +12,11 @@ import com.example.moneyco.navigation.MAIN_ROUTE
 import com.example.moneyco.navigation.ROOT_ROUTE
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.DelicateCoroutinesApi
 
 
+@DelicateCoroutinesApi
+@RequiresApi(Build.VERSION_CODES.M)
 @ExperimentalAnimationApi
 @ExperimentalMaterialApi
 @Composable

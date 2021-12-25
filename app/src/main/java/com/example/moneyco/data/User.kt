@@ -1,4 +1,4 @@
-package com.example.moneyco.model
+package com.example.moneyco.data
 
 data class User(
     var displayName: String? = "",

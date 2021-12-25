@@ -17,12 +17,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.navigation.NavController
+import coil.annotation.ExperimentalCoilApi
 import com.example.moneyco.components.fab.MultiFloatingActionButton
 import com.example.moneyco.model.FabIcon
 import com.example.moneyco.model.fab.MultiFabItem
 import com.example.moneyco.model.signOut
 import com.example.moneyco.navigation.BottomBarScreen
+import com.example.moneyco.navigation.Screen
+import kotlinx.coroutines.DelicateCoroutinesApi
 
+@DelicateCoroutinesApi
+@ExperimentalCoilApi
 @ExperimentalAnimationApi
 @ExperimentalMaterialApi
 @Composable
@@ -40,7 +45,7 @@ fun HomeScreen(navController: NavController) {
                         id = 1,
                         iconRes = Icons.Rounded.MonetizationOn,
                         label = "Ajouter revenu",
-                        route = BottomBarScreen.Tache.route
+                        route = Screen.Revenu.route
                     ),
                     MultiFabItem(
                         id = 2,
@@ -53,12 +58,10 @@ fun HomeScreen(navController: NavController) {
                     iconRes = Icons.Filled.Add, iconRotate = 45f
                 ),
                 onFabItemClicked = {
-//                    Toast.makeText(context, it.label, Toast.LENGTH_SHORT).show()
                     navController.navigate(it.route)
                 }
             )
         },
-
         floatingActionButtonPosition = FabPosition.End,
     ) {
         Column(
@@ -74,16 +77,12 @@ fun HomeScreen(navController: NavController) {
                 fontWeight = FontWeight.Bold,
                 color = Color.White
             )
-
             Button(onClick = {
                 signOut(context = context)
             }) {
                 Text(text = "Sign OUT")
-
             }
-
         }
     }
-
 }
 

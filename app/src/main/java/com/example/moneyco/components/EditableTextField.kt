@@ -76,12 +76,16 @@ fun EditableTextField(
                     disabledLeadingIconColor = MaterialTheme.colors.secondaryVariant,
                     unfocusedLabelColor = MaterialTheme.colors.primary
                 ),
-                shape = RoundedCornerShape(9.dp)
+                shape = RoundedCornerShape(9.dp),
+                modifier = Modifier.weight(0.9f)
             )
             if (!enable) {
-                IconButton(onClick = {
-                    enable = !enable
-                }) {
+                IconButton(
+                    onClick = {
+                        enable = !enable
+                    },
+                    modifier = Modifier.weight(0.1f)
+                ) {
                     Icon(
                         Icons.Outlined.Edit,
                         "edit",

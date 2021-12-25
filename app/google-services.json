@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "612915712773-117pgc0slvoh2v4ok9elm7orjfgkebfi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.moneyco",
+            "certificate_hash": "e7de173ed786b18fd3dd038819f0ec4702023a09"
+          }
+        },
+        {
           "client_id": "612915712773-9jmoegn294nhuvvskfvfro5cunirpldu.apps.googleusercontent.com",
           "client_type": 3
         }

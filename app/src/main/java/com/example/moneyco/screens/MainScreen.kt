@@ -1,5 +1,7 @@
 package com.example.moneyco.screens
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
@@ -20,16 +22,19 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import coil.annotation.ExperimentalCoilApi
 import com.example.moneyco.navigation.BottomBarScreen
 import com.example.moneyco.navigation.nav_graph.BottomNavGraph
+import kotlinx.coroutines.DelicateCoroutinesApi
 
+@DelicateCoroutinesApi
+@ExperimentalCoilApi
+@RequiresApi(Build.VERSION_CODES.M)
 @ExperimentalAnimationApi
 @ExperimentalMaterialApi
 @Composable
 fun MainScreen() {
     val navController = rememberNavController()
-    val context = LocalContext.current
-
     Scaffold(
         bottomBar = {
             BottomBar(navController = navController)
@@ -48,28 +53,38 @@ fun BottomBar(navController: NavController) {
         BottomBarScreen.Tache,
         BottomBarScreen.Profil,
     )
-
+    val context = LocalContext.current
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
 
-    Row(
-        modifier = Modifier
-            .background(MaterialTheme.colors.primaryVariant.copy(alpha = 0.9f))
-            .padding(7.dp)
-            .fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceAround,
-        verticalAlignment = Alignment.CenterVertically
+
+    if (currentDestination?.route in arrayListOf(
+            BottomBarScreen.Home.route,
+            BottomBarScreen.Transaction.route,
+            BottomBarScreen.Tache.route,
+            BottomBarScreen.Profil.route,
+        )
     ) {
+        Row(
+            modifier = Modifier
+                .background(MaterialTheme.colors.primaryVariant.copy(alpha = 0.9f))
+                .padding(7.dp)
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceAround,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
 
-        screens.forEach { screen ->
-            CustomBottomNavigationItem(
-                screen = screen,
-                isSelected = screen.route == currentDestination?.route,
-                navController = navController as NavHostController
-            )
+            screens.forEach { screen ->
+                CustomBottomNavigationItem(
+                    screen = screen,
+                    isSelected = screen.route == currentDestination?.route,
+                    navController = navController as NavHostController
+                )
+            }
         }
-
     }
+
+
 }
 
 @ExperimentalAnimationApi
