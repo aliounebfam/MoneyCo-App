@@ -1,4 +1,4 @@
-package com.example.moneyco.screens
+package com.example.moneyco.screens.main
 
 import android.annotation.SuppressLint
 import android.os.Build

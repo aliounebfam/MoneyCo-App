@@ -6,12 +6,16 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
+import coil.annotation.ExperimentalCoilApi
 import com.example.moneyco.navigation.AUTH_ROUTE
 import com.example.moneyco.navigation.Screen
-import com.example.moneyco.screens.LogInScreen
-import com.example.moneyco.screens.SignUpScreen
+import com.example.moneyco.screens.authentification.LogInScreen
+import com.example.moneyco.screens.authentification.SignUpScreen
+import kotlinx.coroutines.DelicateCoroutinesApi
 
 
+@DelicateCoroutinesApi
+@ExperimentalCoilApi
 @ExperimentalAnimationApi
 @ExperimentalMaterialApi
 fun NavGraphBuilder.authNavGraph(
@@ -31,14 +35,5 @@ fun NavGraphBuilder.authNavGraph(
         ) {
             SignUpScreen(navController = navController)
         }
-//        composable(
-//            route = Screen.OTP.route,
-//            arguments = listOf(navArgument(LOGIN_PHONE_NUMBER){
-//                type = NavType.StringType
-//            })
-//        ) {
-//            Log.d("test", it.arguments?.getString(LOGIN_PHONE_NUMBER).toString())
-//            OtpScreen(navController = navController)
-//        }
     }
 }

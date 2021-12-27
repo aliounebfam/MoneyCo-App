@@ -25,7 +25,7 @@ fun setupGoogle() {
             it,
             currentUser.email,
             0,
-            currentUser.phoneNumber,
+            "",
             currentUser.photoUrl.toString()
         )
     }
@@ -73,34 +73,3 @@ fun signOut(context: Context) {
         }
     }
 }
-
-// fun getDataUser(): MutableMap<String, Any> {
-//     val result = mutableMapOf<String, Any>()
-//      GlobalScope.launch {
-//
-//         val currentUser = Firebase.auth.currentUser
-//         val db = Firebase.firestore
-//         val doc = db.collection("users").document(currentUser!!.uid)
-//          doc.get()
-//             .addOnSuccessListener { document->
-//
-//                 document.data?.forEach{
-//                         (key, value) -> result[key] = value
-//                 }
-//             }.await()
-////
-//
-//     }
-//     Log.d("testons", result.values.toString())
-//     return result
-//
-//
-//
-//
-//
-//
-////     currentUser?.let { db.collection("users").document(it.uid) }?.get()
-////        ?.addOnSuccessListener { document ->
-////            document.data
-////        }
-//}

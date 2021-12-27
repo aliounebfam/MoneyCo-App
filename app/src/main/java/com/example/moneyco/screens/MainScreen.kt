@@ -15,7 +15,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -50,10 +49,9 @@ fun BottomBar(navController: NavController) {
     val screens = listOf(
         BottomBarScreen.Home,
         BottomBarScreen.Transaction,
-        BottomBarScreen.Tache,
+        BottomBarScreen.Note,
         BottomBarScreen.Profil,
     )
-    val context = LocalContext.current
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
 
@@ -61,7 +59,7 @@ fun BottomBar(navController: NavController) {
     if (currentDestination?.route in arrayListOf(
             BottomBarScreen.Home.route,
             BottomBarScreen.Transaction.route,
-            BottomBarScreen.Tache.route,
+            BottomBarScreen.Note.route,
             BottomBarScreen.Profil.route,
         )
     ) {

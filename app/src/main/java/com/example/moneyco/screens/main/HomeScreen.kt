@@ -1,4 +1,4 @@
-package com.example.moneyco.screens
+package com.example.moneyco.screens.main
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
@@ -23,7 +23,8 @@ import com.example.moneyco.model.FabIcon
 import com.example.moneyco.model.fab.MultiFabItem
 import com.example.moneyco.model.signOut
 import com.example.moneyco.navigation.BottomBarScreen
-import com.example.moneyco.navigation.Screen
+import com.example.moneyco.navigation.REVENU_ROUTE
+import com.example.moneyco.screens.BottomBar
 import kotlinx.coroutines.DelicateCoroutinesApi
 
 @DelicateCoroutinesApi
@@ -45,7 +46,7 @@ fun HomeScreen(navController: NavController) {
                         id = 1,
                         iconRes = Icons.Rounded.MonetizationOn,
                         label = "Ajouter revenu",
-                        route = Screen.Revenu.route
+                        route = REVENU_ROUTE
                     ),
                     MultiFabItem(
                         id = 2,

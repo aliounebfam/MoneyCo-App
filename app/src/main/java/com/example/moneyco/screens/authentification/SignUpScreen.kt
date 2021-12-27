@@ -1,4 +1,4 @@
-package com.example.moneyco.screens
+package com.example.moneyco.screens.authentification
 
 import android.app.Activity
 import android.content.Context
@@ -33,6 +33,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import coil.annotation.ExperimentalCoilApi
 import com.example.moneyco.OtpActivity
 import com.example.moneyco.R
 import com.example.moneyco.components.DividerLogin
@@ -54,10 +55,13 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import io.michaelrocks.libphonenumber.android.PhoneNumberUtil
+import kotlinx.coroutines.DelicateCoroutinesApi
 
 
 const val PHONE_NUMBER = ""
 
+@ExperimentalCoilApi
+@DelicateCoroutinesApi
 @ExperimentalAnimationApi
 @ExperimentalMaterialApi
 @Composable

@@ -7,6 +7,7 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import coil.annotation.ExperimentalCoilApi
 import com.example.moneyco.navigation.AUTH_ROUTE
 import com.example.moneyco.navigation.MAIN_ROUTE
 import com.example.moneyco.navigation.ROOT_ROUTE
@@ -15,6 +16,7 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.DelicateCoroutinesApi
 
 
+@ExperimentalCoilApi
 @DelicateCoroutinesApi
 @RequiresApi(Build.VERSION_CODES.M)
 @ExperimentalAnimationApi

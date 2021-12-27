@@ -10,19 +10,23 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.example.moneyco.screens.NUMBER_PHONE
+import coil.annotation.ExperimentalCoilApi
 import com.example.moneyco.screens.OtpScreen
+import com.example.moneyco.screens.authentification.NUMBER_PHONE
 import com.example.moneyco.ui.theme.MoneyCoTheme
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.PhoneAuthCredential
 import com.google.firebase.auth.PhoneAuthOptions
 import com.google.firebase.auth.PhoneAuthProvider
+import kotlinx.coroutines.DelicateCoroutinesApi
 import java.util.concurrent.TimeUnit
 
 
 @ExperimentalAnimationApi
 @ExperimentalMaterialApi
+@DelicateCoroutinesApi
+@ExperimentalCoilApi
 class OtpLoginActivity : AppCompatActivity() {
     lateinit var navController: NavHostController
     private val mAuth = FirebaseAuth.getInstance()
@@ -43,7 +47,7 @@ class OtpLoginActivity : AppCompatActivity() {
                         .show()
                     send(phone)
                     OtpScreen { otp ->
-                        otpVerification(otp, phone)
+                        otpVerification(otp)
                     }
                 }
             }
@@ -82,8 +86,10 @@ class OtpLoginActivity : AppCompatActivity() {
         PhoneAuthProvider.verifyPhoneNumber(options)
     }
 
+    @ExperimentalCoilApi
+    @DelicateCoroutinesApi
     @ExperimentalAnimationApi
-    fun otpVerification(otp: String, phone: String) {
+    fun otpVerification(otp: String) {
         val credential = PhoneAuthProvider.getCredential(verificationOtp, otp)
         FirebaseAuth.getInstance().signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->

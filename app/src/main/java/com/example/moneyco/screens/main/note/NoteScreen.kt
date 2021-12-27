@@ -1,4 +1,4 @@
-package com.example.moneyco.screens
+package com.example.moneyco.screens.main.note
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -12,7 +12,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 
 @Composable
-fun TacheScreen() {
+fun NoteScreen() {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -20,7 +20,7 @@ fun TacheScreen() {
         contentAlignment = Alignment.Center
     ) {
         Text(
-            text = "Tache Screen",
+            text = "Notes Screen",
             fontSize = MaterialTheme.typography.h3.fontSize,
             fontWeight = FontWeight.Bold,
             color = Color.White

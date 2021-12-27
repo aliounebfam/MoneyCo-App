@@ -20,13 +20,13 @@ sealed class BottomBarScreen(
 
     object Transaction : BottomBarScreen(
         route = "transaction",
-        title = "Transaction",
+        title = "Transactions",
         icon = Icons.Rounded.ReceiptLong
     )
 
-    object Tache : BottomBarScreen(
-        route = "tache",
-        title = "Tâche",
+    object Note : BottomBarScreen(
+        route = "note",
+        title = "Notes",
         icon = Icons.Rounded.Task
     )
 
