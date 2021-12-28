@@ -1,4 +1,4 @@
-package com.example.moneyco.components
+package com.example.moneyco.screens.main.profil.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement

@@ -36,13 +36,13 @@ import androidx.navigation.NavController
 import coil.annotation.ExperimentalCoilApi
 import com.example.moneyco.OtpLoginActivity
 import com.example.moneyco.R
-import com.example.moneyco.components.DividerLogin
-import com.example.moneyco.components.SignInButtonUi
-import com.example.moneyco.components.TextAlreadyAccount
 import com.example.moneyco.model.AuthViewModel
 import com.example.moneyco.navigation.AUTH_ROUTE
 import com.example.moneyco.navigation.MAIN_ROUTE
 import com.example.moneyco.navigation.Screen
+import com.example.moneyco.screens.authentification.components.DividerLogin
+import com.example.moneyco.screens.authentification.components.SignGoogleButton
+import com.example.moneyco.screens.authentification.components.TextAlreadyAccount
 import com.example.moneyco.ui.theme.Merienda
 import com.example.moneyco.utils.LoadingState
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -281,7 +281,7 @@ fun LogInScreen(
                 Spacer(modifier = Modifier.height(30.dp))
                 DividerLogin()
                 Spacer(modifier = Modifier.height(18.dp))
-                SignInButtonUi(
+                SignGoogleButton(
                     text = "Se connecter avec Google",
                     onClicked = {
                         if (auth.currentUser?.displayName == null) {

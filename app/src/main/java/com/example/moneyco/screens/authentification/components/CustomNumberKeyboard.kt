@@ -1,4 +1,4 @@
-package com.example.moneyco.components
+package com.example.moneyco.screens.authentification.components
 
 import android.graphics.Color.rgb
 import androidx.compose.foundation.layout.*
@@ -10,10 +10,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.moneyco.ui.theme.MoneyCoTheme
 
 
 @Composable
@@ -21,7 +19,6 @@ fun CustomKeyboard() {
     val inputVal = remember { mutableStateOf("") }
 
     CustomKeyboard(
-        input = inputVal.value,
         onClick = { digit ->
             inputVal.value += digit.toString()
         },
@@ -34,7 +31,6 @@ fun CustomKeyboard() {
 @Composable
 fun CustomKeyboard(
     modifier: Modifier = Modifier,
-    input: String,
     onClick: (digit: Char) -> Unit,
     onClick2: () -> Unit
 ) {
@@ -112,19 +108,4 @@ private fun NumberButton(
             color = MaterialTheme.colors.primaryVariant
         )
     }
-}
-
-
-@Preview
-@Composable
-fun CustomKEye() {
-    MoneyCoTheme {
-        NumberButton(number = 3, onClick = {})
-    }
-}
-
-@Preview
-@Composable
-fun CustomKEy() {
-    CustomKeyboard()
 }

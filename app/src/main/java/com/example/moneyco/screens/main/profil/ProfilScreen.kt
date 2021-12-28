@@ -1,4 +1,4 @@
-package com.example.moneyco.screens.main
+package com.example.moneyco.screens.main.profil
 
 import android.annotation.SuppressLint
 import android.os.Build
@@ -32,8 +32,11 @@ import coil.annotation.ExperimentalCoilApi
 import coil.compose.ImagePainter
 import coil.compose.rememberImagePainter
 import coil.transform.CircleCropTransformation
-import com.example.moneyco.components.*
+import com.example.moneyco.components.ShimmerInfoProfil
+import com.example.moneyco.components.ShimmerProfil
 import com.example.moneyco.model.MyViewModel
+import com.example.moneyco.screens.main.profil.components.EditableTextField
+import com.example.moneyco.screens.main.profil.components.LottieFiles
 import com.example.moneyco.ui.theme.Merienda
 import com.example.moneyco.ui.theme.Nunito
 import com.google.accompanist.swiperefresh.SwipeRefresh
@@ -69,50 +72,48 @@ fun ProfilScreen() {
     val viewModel: MyViewModel = viewModel()
     val isRefreshing by viewModel.isRefreshing.collectAsState()
 
-    SwipeRefresh(
-        state = rememberSwipeRefreshState(isRefreshing),
-        onRefresh = { viewModel.refresh() },
-        indicator = { state, trigger ->
-            SwipeRefreshIndicator(
-                state = state,
-                refreshTriggerDistance = trigger,
-                scale = true,
-                contentColor = MaterialTheme.colors.primary,
-                largeIndication = false,
-                elevation = 8.dp
+    GlobalScope.launch {
+        val doc = db.collection("users").document(currentUser!!.uid)
+        doc.get()
+            .addOnSuccessListener { document ->
+                name = document.data?.get("displayName").toString()
+                image = document.data?.get("photoURl").toString()
+                email = document.data?.get("email").toString()
+                phone = document.data?.get("phoneNumber").toString()
+                budget = document.data?.get("budget").toString()
+                visible = false
+            }
+    }
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text(
+                        "Mon profil",
+                        fontWeight = FontWeight.SemiBold,
+                        fontFamily = Nunito,
+                        fontSize = 30.sp
+                    )
+                },
+                backgroundColor = MaterialTheme.colors.primaryVariant,
+                elevation = 8.dp,
             )
-        }
-    ) {
-
-        GlobalScope.launch {
-            val doc = db.collection("users").document(currentUser!!.uid)
-            doc.get()
-                .addOnSuccessListener { document ->
-                    name = document.data?.get("displayName").toString()
-                    image = document.data?.get("photoURl").toString()
-                    email = document.data?.get("email").toString()
-                    phone = document.data?.get("phoneNumber").toString()
-                    budget = document.data?.get("budget").toString()
-                    visible = false
+        },
+        content = {
+            SwipeRefresh(
+                state = rememberSwipeRefreshState(isRefreshing),
+                onRefresh = { viewModel.refresh() },
+                indicator = { state, trigger ->
+                    SwipeRefreshIndicator(
+                        state = state,
+                        refreshTriggerDistance = trigger,
+                        scale = true,
+                        contentColor = MaterialTheme.colors.primary,
+                        largeIndication = false,
+                        elevation = 8.dp
+                    )
                 }
-        }
-
-        Scaffold(
-            topBar = {
-                TopAppBar(
-                    title = {
-                        Text(
-                            "Mon profil",
-                            fontWeight = FontWeight.SemiBold,
-                            fontFamily = Nunito,
-                            fontSize = 30.sp
-                        )
-                    },
-                    backgroundColor = MaterialTheme.colors.primaryVariant,
-                    elevation = 8.dp,
-                )
-            },
-            content = {
+            ) {
                 Column(
                     modifier = Modifier
                         .fillMaxSize()
@@ -165,7 +166,7 @@ fun ProfilScreen() {
                                     }
                                 )
                             } else {
-                                lottieFiles(
+                                LottieFiles(
                                     modifier = Modifier
                                         .size(110.dp)
                                         .clip(CircleShape)
@@ -296,14 +297,14 @@ fun ProfilScreen() {
                     }
                     Spacer(modifier = Modifier.height(55.dp))
                     if (boolean) {
-                        alertDialog()
+                        com.example.moneyco.screens.main.profil.components.AlertDialog()
                     }
                 }
             }
-        )
+        }
+    )
 
-
-    }
 }
+
 
 

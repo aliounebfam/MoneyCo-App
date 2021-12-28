@@ -1,4 +1,4 @@
-package com.example.moneyco.components
+package com.example.moneyco.screens.main.profil.components
 
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -13,7 +13,7 @@ import com.example.moneyco.R
 
 @RequiresApi(Build.VERSION_CODES.M)
 @Composable
-fun lottieFiles(modifier: Modifier = Modifier) {
+fun LottieFiles(modifier: Modifier = Modifier) {
     val context = LocalContext.current
     val customView = remember { LottieAnimationView(context) }
     AndroidView(

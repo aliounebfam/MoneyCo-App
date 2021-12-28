@@ -10,10 +10,10 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import coil.annotation.ExperimentalCoilApi
 import com.example.moneyco.navigation.BottomBarScreen
-import com.example.moneyco.screens.TransactionScreen
-import com.example.moneyco.screens.main.HomeScreen
-import com.example.moneyco.screens.main.ProfilScreen
+import com.example.moneyco.screens.main.home.HomeScreen
 import com.example.moneyco.screens.main.note.NoteScreen
+import com.example.moneyco.screens.main.profil.ProfilScreen
+import com.example.moneyco.screens.main.transaction.TransactionScreen
 import kotlinx.coroutines.DelicateCoroutinesApi
 
 @ExperimentalCoilApi

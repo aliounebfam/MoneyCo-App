@@ -1,4 +1,4 @@
-package com.example.moneyco.components
+package com.example.moneyco.screens.authentification.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Row
@@ -20,7 +20,7 @@ import com.example.moneyco.R
 
 @ExperimentalMaterialApi
 @Composable
-fun SignInButtonUi(
+fun SignGoogleButton(
     modifier: Modifier = Modifier,
     text: String = "S'inscrire avec Google",
     icon: Painter = painterResource(id = R.drawable.ic_google_icon),

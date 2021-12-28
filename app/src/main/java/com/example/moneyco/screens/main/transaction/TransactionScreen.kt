@@ -1,4 +1,4 @@
-package com.example.moneyco.screens
+package com.example.moneyco.screens.main.transaction
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

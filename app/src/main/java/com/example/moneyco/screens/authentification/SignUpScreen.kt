@@ -34,16 +34,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.annotation.ExperimentalCoilApi
-import com.example.moneyco.OtpActivity
+import com.example.moneyco.OtpSignUpActivity
 import com.example.moneyco.R
-import com.example.moneyco.components.DividerLogin
-import com.example.moneyco.components.SignInButtonUi
-import com.example.moneyco.components.TextAlreadyAccount
 import com.example.moneyco.model.AuthViewModel
 import com.example.moneyco.model.setupGoogle
 import com.example.moneyco.navigation.AUTH_ROUTE
 import com.example.moneyco.navigation.MAIN_ROUTE
 import com.example.moneyco.navigation.Screen
+import com.example.moneyco.screens.authentification.components.DividerLogin
+import com.example.moneyco.screens.authentification.components.SignGoogleButton
+import com.example.moneyco.screens.authentification.components.TextAlreadyAccount
 import com.example.moneyco.ui.theme.Merienda
 import com.example.moneyco.utils.LoadingState
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -192,7 +192,7 @@ fun SignUpScreen(
                         )
                     }
                     Spacer(modifier = Modifier.height(42.dp))
-                    SignInButtonUi(
+                    SignGoogleButton(
                         onClicked = {
                             if (auth.currentUser?.displayName == null) {
                                 googleSignInClient.signOut()
@@ -278,7 +278,7 @@ fun SignUpScreen(
                                     context.startActivity(
                                         Intent(
                                             context,
-                                            OtpActivity::class.java
+                                            OtpSignUpActivity::class.java
                                         ).apply {
                                             putExtra(
                                                 PHONE_NUMBER,

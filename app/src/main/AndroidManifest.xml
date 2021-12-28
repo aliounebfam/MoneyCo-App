@@ -11,7 +11,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MoneyCo.NoActionBar">
+        android:theme="@style/Theme.MoneyCo.NoActionBar"
+        tools:ignore="AllowBackup">
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -24,7 +25,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".OtpActivity"
+            android:name=".OtpSignUpActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.MoneyCo.NoActionBar" />

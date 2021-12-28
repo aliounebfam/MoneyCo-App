@@ -1,4 +1,4 @@
-package com.example.moneyco.components.fab
+package com.example.moneyco.screens.main.home.components
 
 import androidx.compose.animation.*
 import androidx.compose.animation.core.animateFloatAsState

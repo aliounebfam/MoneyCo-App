@@ -1,4 +1,4 @@
-package com.example.moneyco.components
+package com.example.moneyco.screens.authentification.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row

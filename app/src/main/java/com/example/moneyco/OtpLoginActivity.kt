@@ -11,8 +11,8 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import coil.annotation.ExperimentalCoilApi
-import com.example.moneyco.screens.OtpScreen
 import com.example.moneyco.screens.authentification.NUMBER_PHONE
+import com.example.moneyco.screens.authentification.OtpScreen
 import com.example.moneyco.ui.theme.MoneyCoTheme
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.FirebaseAuth
@@ -97,8 +97,6 @@ class OtpLoginActivity : AppCompatActivity() {
                     val i = Intent(this, MainActivity::class.java)
                     finish()
                     startActivity(i)
-                    Toast.makeText(applicationContext, "Vérification réusssie", Toast.LENGTH_SHORT)
-                        .show()
 
                 } else {
                     Toast.makeText(applicationContext, "Mauvais code saisi", Toast.LENGTH_SHORT)

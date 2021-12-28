@@ -1,4 +1,4 @@
-package com.example.moneyco.screens
+package com.example.moneyco.screens.authentification
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -15,8 +15,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.moneyco.components.CustomKeyboard
-import com.example.moneyco.components.OTPTextFields
+import com.example.moneyco.screens.authentification.components.CustomKeyboard
+import com.example.moneyco.screens.authentification.components.OtpSecretCodeField
 import com.example.moneyco.ui.theme.MoneyCoTheme
 
 
@@ -57,7 +57,7 @@ fun OtpScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            OTPTextFields(
+            OtpSecretCodeField(
                 length = 6,
                 onFilled = {
                 },
@@ -92,7 +92,6 @@ fun OtpScreen(
             Spacer(modifier = Modifier.height(30.dp))
 
             CustomKeyboard(
-                input = inputVal.value,
                 onClick = { digit ->
                     inputVal.value += digit.toString()
                 },

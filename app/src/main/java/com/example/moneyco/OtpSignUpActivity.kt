@@ -12,7 +12,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import coil.annotation.ExperimentalCoilApi
 import com.example.moneyco.model.setupOTP
-import com.example.moneyco.screens.OtpScreen
+import com.example.moneyco.screens.authentification.OtpScreen
 import com.example.moneyco.screens.authentification.PHONE_NUMBER
 import com.example.moneyco.ui.theme.MoneyCoTheme
 import com.google.firebase.FirebaseException
@@ -27,7 +27,7 @@ import java.util.concurrent.TimeUnit
 @ExperimentalAnimationApi
 @DelicateCoroutinesApi
 @ExperimentalCoilApi
-class OtpActivity : AppCompatActivity() {
+class OtpSignUpActivity : AppCompatActivity() {
     lateinit var navController: NavHostController
     private val mAuth = FirebaseAuth.getInstance()
     var verificationOtp = ""
@@ -98,8 +98,6 @@ class OtpActivity : AppCompatActivity() {
                     val i = Intent(this, MainActivity::class.java)
                     finish()
                     startActivity(i)
-                    Toast.makeText(applicationContext, "Vérification réusssie", Toast.LENGTH_SHORT)
-                        .show()
 
                 } else {
                     Toast.makeText(applicationContext, "Mauvais code saisi", Toast.LENGTH_SHORT)

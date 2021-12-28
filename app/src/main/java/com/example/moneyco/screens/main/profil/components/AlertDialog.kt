@@ -1,4 +1,4 @@
-package com.example.moneyco.components
+package com.example.moneyco.screens.main.profil.components
 
 
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -8,15 +8,17 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import coil.annotation.ExperimentalCoilApi
 import com.example.moneyco.model.signOut
 import kotlinx.coroutines.DelicateCoroutinesApi
 
 
+@ExperimentalCoilApi
 @DelicateCoroutinesApi
 @ExperimentalMaterialApi
 @ExperimentalAnimationApi
 @Composable
-fun alertDialog() {
+fun AlertDialog() {
     val context = LocalContext.current
     val openDialog = remember { mutableStateOf(true) }
 

@@ -1,4 +1,4 @@
-package com.example.moneyco.components
+package com.example.moneyco.screens.authentification.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
@@ -18,7 +18,7 @@ fun TextAlreadyAccount(
     text2: String = "CONNECTEZ VOUS",
     fontSize: TextUnit = 12.5.sp
 ) {
-    Row() {
+    Row {
         Text(
             text = text1,
             style = TextStyle(fontSize = fontSize),

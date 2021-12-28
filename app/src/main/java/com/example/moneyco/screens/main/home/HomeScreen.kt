@@ -1,4 +1,4 @@
-package com.example.moneyco.screens.main
+package com.example.moneyco.screens.main.home
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
@@ -18,13 +18,13 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.navigation.NavController
 import coil.annotation.ExperimentalCoilApi
-import com.example.moneyco.components.fab.MultiFloatingActionButton
 import com.example.moneyco.model.FabIcon
 import com.example.moneyco.model.fab.MultiFabItem
 import com.example.moneyco.model.signOut
 import com.example.moneyco.navigation.BottomBarScreen
 import com.example.moneyco.navigation.REVENU_ROUTE
 import com.example.moneyco.screens.BottomBar
+import com.example.moneyco.screens.main.home.components.MultiFloatingActionButton
 import kotlinx.coroutines.DelicateCoroutinesApi
 
 @DelicateCoroutinesApi

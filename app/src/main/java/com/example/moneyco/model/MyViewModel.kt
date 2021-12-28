@@ -15,7 +15,6 @@ class MyViewModel : ViewModel() {
         get() = _isRefreshing.asStateFlow()
 
     fun refresh() {
-        // This doesn't handle multiple 'refreshing' tasks, don't use this
         viewModelScope.launch {
             _isRefreshing.emit(true)
             delay(950)

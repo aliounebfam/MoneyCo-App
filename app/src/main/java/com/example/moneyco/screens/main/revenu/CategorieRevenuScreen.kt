@@ -6,11 +6,15 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Paid
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.moneyco.navigation.Screen
@@ -25,7 +29,7 @@ fun CategorieRevenuScreen(navController: NavController) {
     val revenus = remember {
         mutableStateListOf<String>()
     }
-    val sous_categories = remember {
+    val sousCategories = remember {
         mutableStateListOf<String>()
     }
 
@@ -33,10 +37,10 @@ fun CategorieRevenuScreen(navController: NavController) {
         path = {
             collection("revenus")
         },
-        onRealtimeCollectionFetch = { value, exception ->
+        onRealtimeCollectionFetch = { value, _ ->
             for (document in value!!.documents) {
                 revenus.add(document.get("nom").toString())
-                sous_categories.add(document.get("sous-categories").toString())
+                sousCategories.add(document.get("sous-categories").toString())
             }
         }
     ) {
@@ -51,8 +55,13 @@ fun CategorieRevenuScreen(navController: NavController) {
             )
             {
                 itemsIndexed(items = revenus.distinct()) { index, revenu ->
+                    Icon(
+                        imageVector = Icons.Outlined.Paid,
+                        contentDescription = "",
+                        tint = Color.Black
+                    )
                     Text(text = revenu, modifier = Modifier.clickable {
-                        if (sous_categories[index] == "false") {
+                        if (sousCategories[index] == "false") {
                             navController.navigate(
                                 route = Screen.AjouterRevenu.passArguments(
                                     revenu

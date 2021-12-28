@@ -1,4 +1,4 @@
-package com.example.moneyco.components
+package com.example.moneyco.screens.authentification.components
 
 import android.graphics.Color.rgb
 import androidx.compose.foundation.layout.Row
@@ -15,13 +15,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.moneyco.ui.theme.MoneyCoTheme
 
 @Composable
-fun OTPTextFields(
+fun OtpSecretCodeField(
     modifier: Modifier = Modifier,
     length: Int,
     inputVal: MutableState<String> = remember { mutableStateOf("") },
@@ -100,15 +98,6 @@ fun OTPTextFields(
                 Spacer(modifier = Modifier.width(15.dp))
             }
         }
-
-    }
-}
-
-@Preview
-@Composable
-fun OTPtextFieldPrev() {
-    MoneyCoTheme {
-        OTPTextFields(length = 6, onFilled = {})
 
     }
 }
