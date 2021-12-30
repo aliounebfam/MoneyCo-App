@@ -39,7 +39,7 @@ android {
     }
     composeOptions {
         kotlinCompilerExtensionVersion compose_version
-        kotlinCompilerVersion '1.5.21'
+        kotlinCompilerVersion '1.5.31'
     }
     packagingOptions {
         resources {
@@ -98,6 +98,7 @@ dependencies {
     // rafraîchir, similaire au SwipeRefreshLayout d'Android.
     implementation 'com.google.accompanist:accompanist-swiperefresh:0.19.0'
 
+    // Dépendance pour manipuler Cloud Firestore plus facilement sur Jetpack Compose
     implementation 'com.github.raipankaj:JetFirestore:1.0.3'
 
     testImplementation 'junit:junit:4.+'
