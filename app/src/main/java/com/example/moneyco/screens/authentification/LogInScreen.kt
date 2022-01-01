@@ -12,6 +12,7 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -19,11 +20,13 @@ import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Phone
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.TileMode
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -58,6 +61,7 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 
 const val NUMBER_PHONE = ""
 
+@ExperimentalComposeUiApi
 @ExperimentalCoilApi
 @DelicateCoroutinesApi
 @ExperimentalAnimationApi
@@ -160,6 +164,7 @@ fun LogInScreen(
             elevation = 8.dp
         )
         {
+            val localFocusManager = LocalFocusManager.current
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
 
@@ -202,7 +207,7 @@ fun LogInScreen(
                     leadingIcon = { Icon(Icons.Filled.Phone, "phone") },
                     trailingIcon = {
                         if (phoneNumber.isNotEmpty()) {
-                            Icon(Icons.Filled.Clear, "clear", modifier = Modifier.clickable {
+                            Icon(Icons.Filled.Clear, "effacer", modifier = Modifier.clickable {
                                 phoneNumber = ""
                             })
                         }
@@ -212,6 +217,46 @@ fun LogInScreen(
                         keyboardType = KeyboardType.Phone,
                         imeAction = ImeAction.Done
                     ),
+                    keyboardActions = KeyboardActions(
+                        onDone = {
+                            try {
+                                val phone =
+                                    phoneUtil.parse(
+                                        phoneNumber,
+                                        telephonyManager.simCountryIso.uppercase()
+                                    )
+                                val isValid = phoneUtil.isValidNumber(phone)
+                                if (isValid) {
+                                    localFocusManager.clearFocus()
+                                    val activity = (context as? Activity)
+                                    activity?.finish()
+                                    context.startActivity(
+                                        Intent(
+                                            context,
+                                            OtpLoginActivity::class.java
+                                        ).apply {
+                                            putExtra(
+                                                NUMBER_PHONE,
+                                                "+${phone.countryCode}${phone.nationalNumber}"
+                                            )
+                                        })
+                                } else {
+                                    Toast.makeText(
+                                        context,
+                                        "Le numéro +${phone.countryCode}${phone.nationalNumber} est invalide",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+
+                            } catch (e: Exception) {
+                                Toast.makeText(
+                                    context, "Le numéro de téléphone saisi est invalide",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                        }
+                    ),
+
                     modifier = Modifier.fillMaxWidth(0.8f),
                     colors = TextFieldDefaults.outlinedTextFieldColors(
                         leadingIconColor = MaterialTheme.colors.secondaryVariant

@@ -6,6 +6,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import coil.annotation.ExperimentalCoilApi
@@ -13,6 +14,7 @@ import com.example.moneyco.model.signOut
 import kotlinx.coroutines.DelicateCoroutinesApi
 
 
+@ExperimentalComposeUiApi
 @ExperimentalCoilApi
 @DelicateCoroutinesApi
 @ExperimentalMaterialApi

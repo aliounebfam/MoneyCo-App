@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.ui.ExperimentalComposeUiApi
 import coil.annotation.ExperimentalCoilApi
 import com.example.moneyco.MainActivity
 import com.example.moneyco.data.User
@@ -52,6 +53,7 @@ fun setupOTP(phoneNumber: String) {
     }
 }
 
+@ExperimentalComposeUiApi
 @ExperimentalCoilApi
 @DelicateCoroutinesApi
 @ExperimentalAnimationApi

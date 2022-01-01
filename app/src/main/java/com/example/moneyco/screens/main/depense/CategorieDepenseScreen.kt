@@ -1,6 +1,5 @@
-package com.example.moneyco.screens.main.revenu
+package com.example.moneyco.screens.main.depense
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumn
@@ -18,54 +17,57 @@ import com.example.moneyco.navigation.Screen
 import com.example.moneyco.screens.main.revenu.components.AddTransactionItem
 import com.example.moneyco.screens.main.revenu.components.LoadingAddTransactionItem
 import com.jet.firestore.JetFirestore
-import kotlinx.coroutines.DelicateCoroutinesApi
 
-@DelicateCoroutinesApi
-@SuppressLint("CoroutineCreationDuringComposition")
 @Composable
-fun CategorieRevenuScreen(navController: NavController) {
+fun CategorieDepenseScreen(navController: NavController) {
 
-    val revenus = remember {
+    val depenses = remember {
         mutableStateListOf<String>()
     }
     val sousCategories = remember {
         mutableStateListOf<String>()
     }
-    val iconsCategorieRevenu = listOf(
-        Icons.Outlined.RequestQuote,
+
+    val iconsCategorieDepense = listOf(
+
+        Icons.Outlined.Subscriptions,
         Icons.Outlined.CardGiftcard,
-        Icons.Outlined.Games,
-        Icons.Outlined.FamilyRestroom,
-        Icons.Outlined.PriceChange,
-        Icons.Outlined.Cottage,
-        Icons.Outlined.Elderly,
-        Icons.Outlined.Savings,
+        Icons.Outlined.HomeWork,
+        Icons.Outlined.EscalatorWarning,
+        Icons.Outlined.Chair,
+        Icons.Outlined.Feed,
+        Icons.Outlined.Checkroom,
+        Icons.Outlined.Paid,
+        Icons.Outlined.Apartment,
+        Icons.Outlined.Celebration,
         Icons.Outlined.PointOfSale,
-        Icons.Outlined.AttachMoney,
+        Icons.Outlined.HealthAndSafety,
+        Icons.Outlined.Traffic,
+        Icons.Outlined.TimeToLeave,
         Icons.Outlined.HelpCenter,
     )
-    Scaffold(
-        topBar = {
-            TopAppBarWithBack(text = "Catégorie revenu", onBackClick = {
-                navController.popBackStack()
-            })
-        }
-    ) {
+
+
+    Scaffold(topBar = {
+        TopAppBarWithBack(text = "Catégorie dépense", onBackClick = {
+            navController.popBackStack()
+        })
+    }) {
         JetFirestore(
             path = {
-                collection("revenus")
+                collection("depenses")
             },
             onSingleTimeCollectionFetch = { value, _ ->
                 for (document in value!!.documents) {
-                    revenus.add(document.get("nom").toString())
+                    depenses.add(document.get("nom").toString())
                     sousCategories.add(document.get("sous-categories").toString())
                 }
             }
         ) {
-            if (revenus.size == 0) {
+            if (depenses.size == 0) {
                 LoadingAddTransactionItem()
             } else {
-                revenus.add("Autres")
+                depenses.add("Autres")
                 sousCategories.add("false")
                 LazyColumn(
                     contentPadding = PaddingValues(
@@ -74,18 +76,18 @@ fun CategorieRevenuScreen(navController: NavController) {
                     verticalArrangement = Arrangement.spacedBy(8.dp)
                 )
                 {
-                    itemsIndexed(items = revenus.distinct()) { index, revenu ->
-                        AddTransactionItem(text = revenu, icon = iconsCategorieRevenu[index]) {
+                    itemsIndexed(items = depenses.distinct()) { index, depense ->
+                        AddTransactionItem(text = depense, icon = iconsCategorieDepense[index]) {
                             if (sousCategories[index] == "false") {
                                 navController.navigate(
-                                    route = Screen.AjouterRevenu.passArguments(
-                                        revenu
+                                    route = Screen.AjouterDepense.passArguments(
+                                        depense
                                     )
                                 )
                             } else {
                                 navController.navigate(
-                                    route = Screen.SousCategorieRevenu.passCategorie(
-                                        revenu
+                                    route = Screen.SousCategorieDepense.passCategorie(
+                                        depense
                                     )
                                 )
                             }
@@ -95,4 +97,5 @@ fun CategorieRevenuScreen(navController: NavController) {
             }
         }
     }
+
 }

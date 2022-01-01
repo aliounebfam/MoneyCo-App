@@ -17,13 +17,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 @Composable
 fun AddTransactionItem(text: String, icon: ImageVector, onClick: () -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(10.dp))
+            .clip(RoundedCornerShape(15.dp))
             .background(Color(0xffE8EAF6).copy(alpha = 0.3f))
             .clickable {
                 onClick()
@@ -43,7 +44,7 @@ fun AddTransactionItem(text: String, icon: ImageVector, onClick: () -> Unit) {
             text = text,
             modifier = Modifier
                 .weight(0.8f),
-            fontSize = MaterialTheme.typography.h6.fontSize,
+            fontSize = 19.sp,
             color = Color(0xFF1D2424)
         )
     }

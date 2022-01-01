@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -15,9 +16,11 @@ import androidx.compose.material.icons.rounded.Clear
 import androidx.compose.material.icons.rounded.Done
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -25,6 +28,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
+@ExperimentalComposeUiApi
 @Composable
 fun EditableTextField(
     content: String,
@@ -33,7 +37,7 @@ fun EditableTextField(
     field: String,
     descriptionIcon: String,
     keyboardType: KeyboardType = KeyboardType.Text,
-    imeAction: ImeAction = ImeAction.Next
+    imeAction: ImeAction = ImeAction.Done
 ) {
 
     val db = Firebase.firestore
@@ -43,7 +47,7 @@ fun EditableTextField(
     var text by remember { mutableStateOf(content) }
     val value by remember { mutableStateOf(content) }
     var enable by remember { mutableStateOf(false) }
-
+    val keyboardController = LocalSoftwareKeyboardController.current
 
     Column {
         Row(
@@ -68,6 +72,12 @@ fun EditableTextField(
                 keyboardOptions = KeyboardOptions.Default.copy(
                     keyboardType = keyboardType,
                     imeAction = imeAction
+                ),
+                keyboardActions = KeyboardActions(
+                    onDone = {
+                        docRef.update(field, text)
+                        keyboardController?.hide()
+                    }
                 ),
                 colors = TextFieldDefaults.outlinedTextFieldColors(
                     leadingIconColor = MaterialTheme.colors.secondaryVariant,
@@ -104,6 +114,7 @@ fun EditableTextField(
                 IconButton(onClick = {
                     docRef.update(field, text)
                     enable = !enable
+                    keyboardController?.hide()
                 }) {
                     Icon(Icons.Rounded.Done, "done", tint = Color(0xFF388E3C))
                 }

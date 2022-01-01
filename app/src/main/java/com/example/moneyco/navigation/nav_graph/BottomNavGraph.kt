@@ -5,17 +5,18 @@ import androidx.annotation.RequiresApi
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import coil.annotation.ExperimentalCoilApi
 import com.example.moneyco.navigation.BottomBarScreen
 import com.example.moneyco.screens.main.home.HomeScreen
-import com.example.moneyco.screens.main.note.NoteScreen
 import com.example.moneyco.screens.main.profil.ProfilScreen
 import com.example.moneyco.screens.main.transaction.TransactionScreen
 import kotlinx.coroutines.DelicateCoroutinesApi
 
+@ExperimentalComposeUiApi
 @ExperimentalCoilApi
 @DelicateCoroutinesApi
 @RequiresApi(Build.VERSION_CODES.M)
@@ -30,9 +31,6 @@ fun BottomNavGraph(navController: NavHostController) {
         composable(route = BottomBarScreen.Home.route) {
             HomeScreen(navController = navController)
         }
-        composable(route = BottomBarScreen.Note.route) {
-            NoteScreen()
-        }
         composable(route = BottomBarScreen.Transaction.route) {
             TransactionScreen()
         }
@@ -40,8 +38,7 @@ fun BottomNavGraph(navController: NavHostController) {
             ProfilScreen()
         }
 
-
         revenuNavGraph(navController = navController)
-
+        depenseNavGraph(navController = navController)
     }
 }

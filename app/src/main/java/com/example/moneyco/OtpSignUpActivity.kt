@@ -7,6 +7,7 @@ import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
@@ -27,6 +28,8 @@ import java.util.concurrent.TimeUnit
 @ExperimentalAnimationApi
 @DelicateCoroutinesApi
 @ExperimentalCoilApi
+@ExperimentalComposeUiApi
+
 class OtpSignUpActivity : AppCompatActivity() {
     lateinit var navController: NavHostController
     private val mAuth = FirebaseAuth.getInstance()
@@ -86,6 +89,7 @@ class OtpSignUpActivity : AppCompatActivity() {
         PhoneAuthProvider.verifyPhoneNumber(options)
     }
 
+    @ExperimentalComposeUiApi
     @ExperimentalCoilApi
     @DelicateCoroutinesApi
     @ExperimentalAnimationApi

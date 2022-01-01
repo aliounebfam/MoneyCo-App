@@ -5,6 +5,7 @@ import androidx.annotation.RequiresApi
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import coil.annotation.ExperimentalCoilApi
@@ -16,6 +17,7 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.DelicateCoroutinesApi
 
 
+@ExperimentalComposeUiApi
 @ExperimentalCoilApi
 @DelicateCoroutinesApi
 @RequiresApi(Build.VERSION_CODES.M)

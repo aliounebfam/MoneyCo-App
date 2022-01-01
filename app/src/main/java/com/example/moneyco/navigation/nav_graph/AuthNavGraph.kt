@@ -2,6 +2,7 @@ package com.example.moneyco.navigation.nav_graph
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
@@ -14,6 +15,7 @@ import com.example.moneyco.screens.authentification.SignUpScreen
 import kotlinx.coroutines.DelicateCoroutinesApi
 
 
+@ExperimentalComposeUiApi
 @DelicateCoroutinesApi
 @ExperimentalCoilApi
 @ExperimentalAnimationApi

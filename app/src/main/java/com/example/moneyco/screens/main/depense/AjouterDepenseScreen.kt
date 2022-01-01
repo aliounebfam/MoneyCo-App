@@ -1,4 +1,4 @@
-package com.example.moneyco.screens.main.revenu
+package com.example.moneyco.screens.main.depense
 
 import android.util.Log
 import android.widget.Toast
@@ -31,7 +31,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.moneyco.components.TopAppBarWithBack
 import com.example.moneyco.data.MesTransactions
-import com.example.moneyco.model.enregistrerMesRevenus
+import com.example.moneyco.model.enregistrerMesDepenses
 import com.example.moneyco.navigation.BottomBarScreen
 import com.example.moneyco.navigation.Screen
 import com.example.moneyco.ui.theme.noir
@@ -44,7 +44,7 @@ import com.jet.firestore.JetFirestore
 
 @ExperimentalComposeUiApi
 @Composable
-fun AjouterRevenuScreen(
+fun AjouterDepenseScreen(
     navController: NavController,
     categorie: String,
     sousCategorie: String
@@ -71,11 +71,9 @@ fun AjouterRevenuScreen(
         }
     ) {}
 
-
-
     Scaffold(
         topBar = {
-            TopAppBarWithBack(text = "Ajouter revenu", onBackClick = {
+            TopAppBarWithBack(text = "Ajouter dépense", onBackClick = {
                 navController.popBackStack()
             })
         }
@@ -180,7 +178,7 @@ fun AjouterRevenuScreen(
             Button(
                 onClick = {
                     try {
-                        enregistrerMesRevenus(
+                        enregistrerMesDepenses(
                             MesTransactions(
                                 categorie,
                                 sousCategorie,
@@ -189,13 +187,13 @@ fun AjouterRevenuScreen(
                                 Timestamp.now()
                             )
                         )
-                        budget += montant.toInt()
+                        budget -= montant.toInt()
                         docRef.update("budget", budget.toString())
                         navController.navigate(BottomBarScreen.Home.route) {
-                            popUpTo(Screen.AjouterRevenu.route) {
+                            popUpTo(Screen.AjouterDepense.route) {
                                 inclusive = true
                             }
-                            popUpTo(Screen.CategorieRevenu.route) {
+                            popUpTo(Screen.CategorieDepense.route) {
                                 inclusive = true
                             }
                             popUpTo(BottomBarScreen.Home.route) {
@@ -204,7 +202,7 @@ fun AjouterRevenuScreen(
                         }
                         Toast.makeText(
                             context,
-                            "Revenu ajouté avec succès \u2713",
+                            "Dépense ajoutée avec succès \u2713",
                             Toast.LENGTH_SHORT
                         )
                             .show()
@@ -216,7 +214,6 @@ fun AjouterRevenuScreen(
                         ).show()
                         montant = ""
                     }
-
                 },
                 shape = RoundedCornerShape(9.dp),
                 modifier = Modifier.fillMaxWidth(),
@@ -231,7 +228,7 @@ fun AjouterRevenuScreen(
 
             ) {
                 Text(
-                    text = "Enregistrer revenu",
+                    text = "Enregistrer dépense",
                     modifier = Modifier.padding(
                         top = 5.dp,
                         bottom = 5.dp,
@@ -240,6 +237,6 @@ fun AjouterRevenuScreen(
                 )
             }
         }
-
     }
+
 }

@@ -2,7 +2,7 @@ package com.example.moneyco.data
 
 import com.google.firebase.Timestamp
 
-data class MesRevenus(
+data class MesTransactions(
     val categorie: String,
     val sousCategorie: String,
     val description: String,

@@ -4,46 +4,46 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.navigation.*
 import androidx.navigation.compose.composable
 import com.example.moneyco.navigation.CATEGORIE
-import com.example.moneyco.navigation.REVENU_ROUTE
+import com.example.moneyco.navigation.DEPENSE_ROUTE
 import com.example.moneyco.navigation.SOUS_CATEGORIE
 import com.example.moneyco.navigation.Screen
-import com.example.moneyco.screens.main.revenu.AjouterRevenuScreen
-import com.example.moneyco.screens.main.revenu.CategorieRevenuScreen
-import com.example.moneyco.screens.main.revenu.SousCategorieRevenuScreen
+import com.example.moneyco.screens.main.depense.AjouterDepenseScreen
+import com.example.moneyco.screens.main.depense.CategorieDepenseScreen
+import com.example.moneyco.screens.main.depense.SousCategorieDepenseScreen
 import kotlinx.coroutines.DelicateCoroutinesApi
 
 
 @ExperimentalComposeUiApi
 @DelicateCoroutinesApi
-fun NavGraphBuilder.revenuNavGraph(
+fun NavGraphBuilder.depenseNavGraph(
     navController: NavHostController
 ) {
     navigation(
-        startDestination = Screen.CategorieRevenu.route,
-        route = REVENU_ROUTE
+        startDestination = Screen.CategorieDepense.route,
+        route = DEPENSE_ROUTE
     ) {
         composable(
-            route = Screen.CategorieRevenu.route
+            route = Screen.CategorieDepense.route
         ) {
-            CategorieRevenuScreen(navController = navController)
+            CategorieDepenseScreen(navController = navController)
         }
 
         composable(
-            route = Screen.SousCategorieRevenu.route,
+            route = Screen.SousCategorieDepense.route,
             arguments = listOf(
                 navArgument(CATEGORIE) {
                     type = NavType.StringType
                 }
             )
         ) {
-            SousCategorieRevenuScreen(
+            SousCategorieDepenseScreen(
                 navController = navController,
                 categorie = it.arguments?.getString(CATEGORIE).toString()
             )
         }
 
         composable(
-            route = Screen.AjouterRevenu.route,
+            route = Screen.AjouterDepense.route,
             arguments = listOf(
                 navArgument(CATEGORIE) {
                     type = NavType.StringType
@@ -54,7 +54,7 @@ fun NavGraphBuilder.revenuNavGraph(
                 }
             )
         ) {
-            AjouterRevenuScreen(
+            AjouterDepenseScreen(
                 navController = navController,
                 categorie = it.arguments?.getString(CATEGORIE).toString(),
                 sousCategorie = it.arguments?.getString(SOUS_CATEGORIE).toString()

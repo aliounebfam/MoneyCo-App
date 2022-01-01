@@ -12,6 +12,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -26,6 +27,7 @@ import com.example.moneyco.navigation.BottomBarScreen
 import com.example.moneyco.navigation.nav_graph.BottomNavGraph
 import kotlinx.coroutines.DelicateCoroutinesApi
 
+@ExperimentalComposeUiApi
 @DelicateCoroutinesApi
 @ExperimentalCoilApi
 @RequiresApi(Build.VERSION_CODES.M)
@@ -49,7 +51,6 @@ fun BottomBar(navController: NavController) {
     val screens = listOf(
         BottomBarScreen.Home,
         BottomBarScreen.Transaction,
-        BottomBarScreen.Note,
         BottomBarScreen.Profil,
     )
     val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -59,7 +60,6 @@ fun BottomBar(navController: NavController) {
     if (currentDestination?.route in arrayListOf(
             BottomBarScreen.Home.route,
             BottomBarScreen.Transaction.route,
-            BottomBarScreen.Note.route,
             BottomBarScreen.Profil.route,
         )
     ) {
@@ -81,8 +81,6 @@ fun BottomBar(navController: NavController) {
             }
         }
     }
-
-
 }
 
 @ExperimentalAnimationApi

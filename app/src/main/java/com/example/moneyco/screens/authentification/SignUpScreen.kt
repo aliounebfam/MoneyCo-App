@@ -12,6 +12,7 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
@@ -19,11 +20,13 @@ import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Phone
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.TileMode
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -60,6 +63,7 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 
 const val PHONE_NUMBER = ""
 
+@ExperimentalComposeUiApi
 @ExperimentalCoilApi
 @DelicateCoroutinesApi
 @ExperimentalAnimationApi
@@ -98,7 +102,7 @@ fun SignUpScreen(
         LocalContext.current.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
     val phoneUtil: PhoneNumberUtil = PhoneNumberUtil.createInstance(LocalContext.current)
     var phoneNumber by remember { mutableStateOf("") }
-
+    val localFocusManager = LocalFocusManager.current
 
     Column {
         Column(
@@ -255,6 +259,45 @@ fun SignUpScreen(
                         keyboardOptions = KeyboardOptions.Default.copy(
                             keyboardType = KeyboardType.Phone,
                             imeAction = ImeAction.Done
+                        ),
+                        keyboardActions = KeyboardActions(
+                            onDone = {
+                                try {
+                                    val phone =
+                                        phoneUtil.parse(
+                                            phoneNumber,
+                                            telephonyManager.simCountryIso.uppercase()
+                                        )
+                                    val isValid = phoneUtil.isValidNumber(phone)
+                                    if (isValid) {
+                                        localFocusManager.clearFocus()
+                                        val activity = (context as? Activity)
+                                        activity?.finish()
+                                        context.startActivity(
+                                            Intent(
+                                                context,
+                                                OtpSignUpActivity::class.java
+                                            ).apply {
+                                                putExtra(
+                                                    PHONE_NUMBER,
+                                                    "+${phone.countryCode}${phone.nationalNumber}"
+                                                )
+                                            })
+                                    } else {
+                                        Toast.makeText(
+                                            context,
+                                            "Le numéro +${phone.countryCode}${phone.nationalNumber} est invalide",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    }
+
+                                } catch (e: Exception) {
+                                    Toast.makeText(
+                                        context, "Le numéro de téléphone saisi est invalide",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                            }
                         ),
                         modifier = Modifier.fillMaxWidth(0.8f),
                         colors = TextFieldDefaults.outlinedTextFieldColors(

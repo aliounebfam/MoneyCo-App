@@ -4,7 +4,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.Person
 import androidx.compose.material.icons.rounded.ReceiptLong
-import androidx.compose.material.icons.rounded.Task
 import androidx.compose.ui.graphics.vector.ImageVector
 
 sealed class BottomBarScreen(
@@ -22,12 +21,6 @@ sealed class BottomBarScreen(
         route = "transaction",
         title = "Transactions",
         icon = Icons.Rounded.ReceiptLong
-    )
-
-    object Note : BottomBarScreen(
-        route = "note",
-        title = "Notes",
-        icon = Icons.Rounded.Task
     )
 
     object Profil : BottomBarScreen(
