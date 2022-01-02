@@ -17,7 +17,7 @@ class MyViewModel : ViewModel() {
     fun refresh() {
         viewModelScope.launch {
             _isRefreshing.emit(true)
-            delay(950)
+            delay(1600)
             _isRefreshing.emit(false)
         }
     }

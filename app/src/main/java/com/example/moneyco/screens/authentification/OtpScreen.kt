@@ -81,8 +81,7 @@ fun OtpScreen(
                 Text(
                     text = "Vérifier le code",
                     modifier = Modifier.padding(
-                        top = 5.dp,
-                        bottom = 5.dp,
+                        vertical = 5.dp
                     )
                 )
             }

@@ -1,7 +1,5 @@
-package com.example.moneyco.screens.main.profil.components
+package com.example.moneyco.screens.main.transaction.components
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -11,9 +9,11 @@ import com.airbnb.lottie.LottieAnimationView
 import com.airbnb.lottie.LottieDrawable
 import com.example.moneyco.R
 
-@RequiresApi(Build.VERSION_CODES.M)
+
 @Composable
-fun LottieFiles(modifier: Modifier = Modifier) {
+fun TransactionLottieFiles(
+    modifier: Modifier = Modifier
+) {
     val context = LocalContext.current
     val customView = remember { LottieAnimationView(context) }
     AndroidView(
@@ -23,10 +23,9 @@ fun LottieFiles(modifier: Modifier = Modifier) {
         modifier = modifier
     ) { view ->
         with(view) {
-            setAnimation(R.raw.avatar_lottie)
+            setAnimation(R.raw.no_transaction_lottie)
             playAnimation()
             repeatCount = LottieDrawable.INFINITE
         }
     }
-
 }

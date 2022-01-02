@@ -165,7 +165,7 @@ fun ProfilScreen(
                                         }
                                     )
                                 } else {
-                                    LottieFiles(
+                                    AvatarLottieFiles(
                                         modifier = Modifier
                                             .size(110.dp)
                                             .clip(CircleShape)
@@ -198,7 +198,7 @@ fun ProfilScreen(
                                 }
                             }
                         }
-                        Spacer(modifier = Modifier.height(28.dp))
+                        Spacer(modifier = Modifier.height(33.dp))
                         Row(
                             horizontalArrangement = Arrangement.Center,
                             modifier = Modifier.fillMaxWidth()
@@ -207,7 +207,6 @@ fun ProfilScreen(
                                 text = "Informations personnelles",
                                 fontSize = MaterialTheme.typography.h6.fontSize,
                                 fontFamily = Nunito
-
                             )
                         }
                         Spacer(modifier = Modifier.height(28.dp))
@@ -298,7 +297,7 @@ fun ProfilScreen(
                                 )
                             }
                         }
-                        Spacer(modifier = Modifier.height(55.dp))
+                        Spacer(modifier = Modifier.height(60.dp))
                         if (boolean) {
                             AlertDialogDeconnexion()
                         }

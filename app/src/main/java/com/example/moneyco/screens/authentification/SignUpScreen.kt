@@ -58,6 +58,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.jet.firestore.JetFirestore
 import io.michaelrocks.libphonenumber.android.PhoneNumberUtil
 import kotlinx.coroutines.DelicateCoroutinesApi
 
@@ -78,6 +79,12 @@ fun SignUpScreen(
 
     val auth: FirebaseAuth = Firebase.auth
 
+    val allEmail = remember {
+        mutableStateListOf<String>()
+    }
+    val allNumberPhone = remember {
+        mutableStateListOf<String>()
+    }
 
     val launcher =
         rememberLauncherForActivityResult(contract = ActivityResultContracts.StartActivityForResult()) {
@@ -104,6 +111,19 @@ fun SignUpScreen(
     val phoneUtil: PhoneNumberUtil = PhoneNumberUtil.createInstance(LocalContext.current)
     var phoneNumber by remember { mutableStateOf("") }
     val localFocusManager = LocalFocusManager.current
+
+    JetFirestore(path = {
+        collection("users")
+    },
+        onSingleTimeCollectionFetch = { value, _ ->
+            for (document in value!!.documents) {
+                allEmail.add(document["email"].toString())
+                allNumberPhone.add(document["phoneNumber"].toString())
+            }
+
+        }
+    ) {}
+
 
     Column {
         Column(
@@ -217,10 +237,21 @@ fun SignUpScreen(
                             if (auth.currentUser?.displayName != null) {
                                 when (state.status) {
                                     LoadingState.Status.SUCCESS -> {
-                                        setupGoogle()
-                                        navController.navigate(MAIN_ROUTE) {
-                                            popUpTo(AUTH_ROUTE) {
-                                                inclusive = true
+                                        if (
+                                            allEmail.contains(auth.currentUser?.email)
+                                        ) {
+                                            Toast.makeText(
+                                                context,
+                                                "Ce compte existe déjà\n" +
+                                                        "Veuillez vous connecter",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                        } else {
+                                            setupGoogle()
+                                            navController.navigate(MAIN_ROUTE) {
+                                                popUpTo(AUTH_ROUTE) {
+                                                    inclusive = true
+                                                }
                                             }
                                         }
                                     }
@@ -317,18 +348,30 @@ fun SignUpScreen(
                                     )
                                 val isValid = phoneUtil.isValidNumber(phone)
                                 if (isValid) {
-                                    val activity = (context as? Activity)
-                                    activity?.finish()
-                                    context.startActivity(
-                                        Intent(
+                                    if (
+                                        allNumberPhone.contains("+${phone.countryCode}${phone.nationalNumber}")
+                                    ) {
+                                        Toast.makeText(
                                             context,
-                                            OtpSignUpActivity::class.java
-                                        ).apply {
-                                            putExtra(
-                                                PHONE_NUMBER,
-                                                "+${phone.countryCode}${phone.nationalNumber}"
-                                            )
-                                        })
+                                            "Ce compte existe déjà\n" +
+                                                    "Veuillez vous connecter",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    } else {
+                                        val activity = (context as? Activity)
+                                        activity?.finish()
+                                        context.startActivity(
+                                            Intent(
+                                                context,
+                                                OtpSignUpActivity::class.java
+                                            ).apply {
+                                                putExtra(
+                                                    PHONE_NUMBER,
+                                                    "+${phone.countryCode}${phone.nationalNumber}"
+                                                )
+                                            })
+                                    }
+
                                 } else {
                                     Toast.makeText(
                                         context,

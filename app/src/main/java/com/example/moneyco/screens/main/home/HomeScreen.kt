@@ -1,6 +1,5 @@
 package com.example.moneyco.screens.main.home
 
-import android.util.Log
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -14,7 +13,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
 import coil.annotation.ExperimentalCoilApi
 import com.example.moneyco.components.TopAppBarSimple
@@ -36,7 +34,6 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 @ExperimentalMaterialApi
 @Composable
 fun HomeScreen(navController: NavController) {
-    val context = LocalContext.current
     val currentUser = Firebase.auth.currentUser
     var getBudget by remember { mutableStateOf("") }
     var budget by remember { mutableStateOf(0) }
@@ -48,7 +45,6 @@ fun HomeScreen(navController: NavController) {
         onRealtimeDocumentFetch = { value, _ ->
             getBudget = value?.get("budget").toString()
             budget = getBudget.toInt()
-            Log.d("testcase", budget.toString())
         }
     ) {}
 

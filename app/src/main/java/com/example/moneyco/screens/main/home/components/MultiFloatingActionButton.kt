@@ -109,9 +109,9 @@ fun MiniFabItem(
                 fontWeight = FontWeight.SemiBold,
                 color = Color.White,
                 modifier = Modifier
-                    .clip(RoundedCornerShape(5.dp))
-                    .background(Color.Black.copy(alpha = 0.4f))
-                    .padding(horizontal = 6.dp, vertical = 4.dp)
+                    .clip(RoundedCornerShape(6.dp))
+                    .background(Color.Black.copy(alpha = 0.47f))
+                    .padding(horizontal = 10.dp, vertical = 5.dp)
             )
         }
 

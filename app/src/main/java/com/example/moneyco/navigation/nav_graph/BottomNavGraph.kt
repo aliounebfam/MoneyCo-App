@@ -10,6 +10,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import coil.annotation.ExperimentalCoilApi
+import com.example.moneyco.model.SearchViewModel
 import com.example.moneyco.navigation.BottomBarScreen
 import com.example.moneyco.screens.main.home.HomeScreen
 import com.example.moneyco.screens.main.profil.ProfilScreen
@@ -23,7 +24,10 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 @ExperimentalAnimationApi
 @ExperimentalMaterialApi
 @Composable
-fun BottomNavGraph(navController: NavHostController) {
+fun BottomNavGraph(
+    navController: NavHostController,
+    viewModel: SearchViewModel
+) {
     NavHost(
         navController = navController,
         startDestination = BottomBarScreen.Home.route
@@ -32,7 +36,7 @@ fun BottomNavGraph(navController: NavHostController) {
             HomeScreen(navController = navController)
         }
         composable(route = BottomBarScreen.Transaction.route) {
-            TransactionScreen(navController = navController)
+            TransactionScreen(navController = navController, viewModel = viewModel)
         }
         composable(route = BottomBarScreen.Profil.route) {
             ProfilScreen(navController = navController)

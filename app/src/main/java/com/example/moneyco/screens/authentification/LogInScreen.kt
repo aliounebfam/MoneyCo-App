@@ -57,6 +57,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.jet.firestore.JetFirestore
 import io.michaelrocks.libphonenumber.android.PhoneNumberUtil
 import kotlinx.coroutines.DelicateCoroutinesApi
 
@@ -98,6 +99,27 @@ fun LogInScreen(
         LocalContext.current.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
     val phoneUtil: PhoneNumberUtil = PhoneNumberUtil.createInstance(LocalContext.current)
     var phoneNumber by remember { mutableStateOf("") }
+
+    val allEmail = remember {
+        mutableStateListOf<String>("")
+    }
+    val allNumberPhone = remember {
+        mutableStateListOf<String>("")
+    }
+
+    JetFirestore(path = {
+        collection("users")
+    },
+        onSingleTimeCollectionFetch = { value, _ ->
+            for (document in value!!.documents) {
+                allEmail.add(document["email"].toString())
+                allNumberPhone.add(document["phoneNumber"].toString())
+            }
+            if (allEmail.contains("aliounefam28@gmail.com")) {
+                Log.d("testcase", "email : okk ")
+            }
+        }
+    ) {}
 
     Column(
         modifier = Modifier
@@ -276,18 +298,31 @@ fun LogInScreen(
                                 )
                             val isValid = phoneUtil.isValidNumber(phone)
                             if (isValid) {
-                                val activity = (context as? Activity)
-                                activity?.finish()
-                                context.startActivity(
-                                    Intent(
+                                if (
+                                    !allNumberPhone.contains(
+                                        "+${phone.countryCode}${phone.nationalNumber}"
+                                    )
+                                ) {
+                                    Toast.makeText(
                                         context,
-                                        OtpLoginActivity::class.java
-                                    ).apply {
-                                        putExtra(
-                                            NUMBER_PHONE,
-                                            "+${phone.countryCode}${phone.nationalNumber}"
-                                        )
-                                    })
+                                        "Vous n'avez pas encore de compte\n" +
+                                                "Veuillez vous inscrire",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                } else {
+                                    val activity = (context as? Activity)
+                                    activity?.finish()
+                                    context.startActivity(
+                                        Intent(
+                                            context,
+                                            OtpLoginActivity::class.java
+                                        ).apply {
+                                            putExtra(
+                                                NUMBER_PHONE,
+                                                "+${phone.countryCode}${phone.nationalNumber}"
+                                            )
+                                        })
+                                }
                             } else {
                                 Toast.makeText(
                                     context,
@@ -346,12 +381,22 @@ fun LogInScreen(
                         if (auth.currentUser?.displayName != null) {
                             when (state.status) {
                                 LoadingState.Status.SUCCESS -> {
-
-                                    navController.navigate(MAIN_ROUTE) {
-                                        popUpTo(AUTH_ROUTE) {
-                                            inclusive = true
+                                    if (!allEmail.contains(auth.currentUser?.email)) {
+                                        Toast.makeText(
+                                            context,
+                                            "Vous n'avez pas encore de compte\n" +
+                                                    "Veuillez vous inscrire",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    } else {
+                                        navController.navigate(MAIN_ROUTE) {
+                                            popUpTo(AUTH_ROUTE) {
+                                                inclusive = true
+                                            }
                                         }
                                     }
+
+
                                 }
                                 LoadingState.Status.FAILED -> {
                                     Toast.makeText(

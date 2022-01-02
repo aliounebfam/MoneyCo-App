@@ -1,6 +1,5 @@
 package com.example.moneyco.screens.main.revenu
 
-import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -66,7 +65,6 @@ fun AjouterRevenuScreen(
         onRealtimeDocumentFetch = { value, _ ->
             getBudget = value?.get("budget").toString()
             budget = getBudget.toInt()
-            Log.d("testcase", budget.toString())
         }
     ) {}
 

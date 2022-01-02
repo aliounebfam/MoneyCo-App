@@ -24,6 +24,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import coil.annotation.ExperimentalCoilApi
+import com.example.moneyco.model.SearchViewModel
 import com.example.moneyco.navigation.BottomBarScreen
 import com.example.moneyco.navigation.nav_graph.BottomNavGraph
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -35,14 +36,16 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 @ExperimentalAnimationApi
 @ExperimentalMaterialApi
 @Composable
-fun MainScreen() {
+fun MainScreen(
+    viewModel: SearchViewModel
+) {
     val navController = rememberNavController()
     Scaffold(
         bottomBar = {
             BottomBar(navController = navController)
         }
     ) {
-        BottomNavGraph(navController = navController)
+        BottomNavGraph(navController = navController, viewModel = viewModel)
     }
 }
 

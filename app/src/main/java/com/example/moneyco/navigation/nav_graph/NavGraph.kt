@@ -9,6 +9,7 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import coil.annotation.ExperimentalCoilApi
+import com.example.moneyco.model.SearchViewModel
 import com.example.moneyco.navigation.AUTH_ROUTE
 import com.example.moneyco.navigation.MAIN_ROUTE
 import com.example.moneyco.navigation.ROOT_ROUTE
@@ -24,7 +25,10 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 @ExperimentalAnimationApi
 @ExperimentalMaterialApi
 @Composable
-fun SetupNavGraph(navController: NavHostController) {
+fun SetupNavGraph(
+    navController: NavHostController,
+    viewModel: SearchViewModel
+) {
 
     val auth = Firebase.auth
 
@@ -39,6 +43,6 @@ fun SetupNavGraph(navController: NavHostController) {
         route = ROOT_ROUTE
     ) {
         authNavGraph(navController = navController)
-        mainNavGraph()
+        mainNavGraph(viewModel = viewModel)
     }
 }
