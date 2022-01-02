@@ -5,6 +5,7 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
@@ -13,6 +14,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -103,10 +105,12 @@ fun MiniFabItem(
         if (fabOption.showLabel) {
             Text(
                 text = item.label,
-                fontSize = 12.sp,
+                fontSize = 13.sp,
                 fontWeight = FontWeight.SemiBold,
+                color = Color.White,
                 modifier = Modifier
-                    .background(Color.White)
+                    .clip(RoundedCornerShape(5.dp))
+                    .background(Color.Black.copy(alpha = 0.4f))
                     .padding(horizontal = 6.dp, vertical = 4.dp)
             )
         }

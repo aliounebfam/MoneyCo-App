@@ -27,7 +27,7 @@ private class FabOptionImpl(
 @SuppressLint("ComposableNaming")
 @Composable
 fun FabOption(
-    backgroundTint: Color = MaterialTheme.colors.primary,
+    backgroundTint: Color = MaterialTheme.colors.primaryVariant,
     iconTint: Color = contentColorFor(backgroundColor = backgroundTint),
     showLabel: Boolean = true
 ): FabOption = FabOptionImpl(iconTint, backgroundTint, showLabel)

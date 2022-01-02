@@ -8,6 +8,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -65,7 +66,14 @@ fun BottomBar(navController: NavController) {
     ) {
         Row(
             modifier = Modifier
-                .background(MaterialTheme.colors.primaryVariant.copy(alpha = 0.9f))
+                .clip(
+                    RoundedCornerShape(
+                        topStart = 25.dp,
+                        topEnd = 25.dp
+//                25.dp
+                    )
+                )
+                .background(MaterialTheme.colors.primaryVariant)
                 .padding(7.dp)
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceAround,
@@ -92,10 +100,9 @@ fun CustomBottomNavigationItem(
 ) {
 
     val background =
-        if (isSelected) MaterialTheme.colors.primary.copy(alpha = 0.3f) else Color.Transparent
+        if (isSelected) MaterialTheme.colors.primary.copy(alpha = 0.5f) else Color.Transparent
     val contentColor =
-        if (isSelected) MaterialTheme.colors.primary else MaterialTheme.colors.secondaryVariant
-
+        if (isSelected) Color(0xffEEEEEE) else Color(0xff311B92)
     Box(
         modifier = Modifier
             .clip(CircleShape)

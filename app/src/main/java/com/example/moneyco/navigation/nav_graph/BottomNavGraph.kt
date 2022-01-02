@@ -32,10 +32,10 @@ fun BottomNavGraph(navController: NavHostController) {
             HomeScreen(navController = navController)
         }
         composable(route = BottomBarScreen.Transaction.route) {
-            TransactionScreen()
+            TransactionScreen(navController = navController)
         }
         composable(route = BottomBarScreen.Profil.route) {
-            ProfilScreen()
+            ProfilScreen(navController = navController)
         }
 
         revenuNavGraph(navController = navController)

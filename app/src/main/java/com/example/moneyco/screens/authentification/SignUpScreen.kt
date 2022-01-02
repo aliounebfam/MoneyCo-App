@@ -48,6 +48,7 @@ import com.example.moneyco.screens.authentification.components.DividerLogin
 import com.example.moneyco.screens.authentification.components.SignGoogleButton
 import com.example.moneyco.screens.authentification.components.TextAlreadyAccount
 import com.example.moneyco.ui.theme.Merienda
+import com.example.moneyco.ui.theme.surface_variant
 import com.example.moneyco.utils.LoadingState
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -347,7 +348,7 @@ fun SignUpScreen(
                         modifier = Modifier.fillMaxWidth(0.8f),
                         colors = ButtonDefaults.buttonColors(
                             backgroundColor = MaterialTheme.colors.primaryVariant,
-                            disabledBackgroundColor = Color(0xFFCCCFDA)
+                            disabledBackgroundColor = surface_variant
                         ),
                         elevation = ButtonDefaults.elevation(
                             8.dp

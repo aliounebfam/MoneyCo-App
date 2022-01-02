@@ -27,6 +27,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import coil.annotation.ExperimentalCoilApi
 import coil.compose.ImagePainter
 import coil.compose.rememberImagePainter
@@ -55,7 +56,9 @@ import kotlinx.coroutines.launch
 @ExperimentalCoilApi
 @SuppressLint("CoroutineCreationDuringComposition")
 @Composable
-fun ProfilScreen() {
+fun ProfilScreen(
+    navController: NavController
+) {
     var name by remember { mutableStateOf("") }
     var image by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
@@ -215,6 +218,7 @@ fun ProfilScreen() {
                         if (!visible) {
 
                             EditableTextField(
+                                navController = navController,
                                 content = name,
                                 label = "Nom et prénom(s)",
                                 icon = Icons.Rounded.Badge,
@@ -225,6 +229,7 @@ fun ProfilScreen() {
                             Spacer(modifier = Modifier.height(25.dp))
 
                             EditableTextField(
+                                navController = navController,
                                 content = email,
                                 label = "Adresse email",
                                 icon = Icons.Rounded.AlternateEmail,
@@ -236,6 +241,7 @@ fun ProfilScreen() {
                             Spacer(modifier = Modifier.height(25.dp))
 
                             EditableTextField(
+                                navController = navController,
                                 content = phone,
                                 label = "Numéro de téléphone",
                                 field = "phoneNumber",
@@ -247,6 +253,7 @@ fun ProfilScreen() {
                             Spacer(modifier = Modifier.height(25.dp))
 
                             EditableTextField(
+                                navController = navController,
                                 content = budget,
                                 label = "Budget actuel",
                                 field = "budget",
@@ -293,7 +300,7 @@ fun ProfilScreen() {
                         }
                         Spacer(modifier = Modifier.height(55.dp))
                         if (boolean) {
-                            AlertDialog()
+                            AlertDialogDeconnexion()
                         }
                     }
                 }

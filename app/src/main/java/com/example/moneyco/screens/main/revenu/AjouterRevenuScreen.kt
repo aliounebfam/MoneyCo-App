@@ -21,7 +21,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -31,7 +30,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.moneyco.components.TopAppBarWithBack
 import com.example.moneyco.data.MesTransactions
-import com.example.moneyco.model.enregistrerMesRevenus
+import com.example.moneyco.model.enregistrerTransactions
 import com.example.moneyco.navigation.BottomBarScreen
 import com.example.moneyco.navigation.Screen
 import com.example.moneyco.ui.theme.noir
@@ -180,12 +179,13 @@ fun AjouterRevenuScreen(
             Button(
                 onClick = {
                     try {
-                        enregistrerMesRevenus(
+                        enregistrerTransactions(
                             MesTransactions(
                                 categorie,
                                 sousCategorie,
                                 description,
                                 montant.toInt(),
+                                "revenu",
                                 Timestamp.now()
                             )
                         )
@@ -222,7 +222,7 @@ fun AjouterRevenuScreen(
                 modifier = Modifier.fillMaxWidth(),
                 colors = ButtonDefaults.buttonColors(
                     backgroundColor = MaterialTheme.colors.primaryVariant,
-                    disabledBackgroundColor = Color(0xFFCCCFDA)
+                    disabledBackgroundColor = surface_variant
                 ),
                 elevation = ButtonDefaults.elevation(
                     8.dp

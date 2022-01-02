@@ -24,6 +24,8 @@ import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.example.moneyco.navigation.BottomBarScreen
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -31,6 +33,7 @@ import com.google.firebase.ktx.Firebase
 @ExperimentalComposeUiApi
 @Composable
 fun EditableTextField(
+    navController: NavController,
     content: String,
     label: String,
     icon: ImageVector,
@@ -115,6 +118,7 @@ fun EditableTextField(
                     docRef.update(field, text)
                     enable = !enable
                     keyboardController?.hide()
+                    navController.navigate(BottomBarScreen.Profil.route)
                 }) {
                     Icon(Icons.Rounded.Done, "done", tint = Color(0xFF388E3C))
                 }
