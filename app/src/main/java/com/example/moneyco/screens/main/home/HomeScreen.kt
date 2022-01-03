@@ -192,7 +192,7 @@ fun HomeScreen(navController: NavController) {
                 cardItem(
                     "Mon budget",
                     budget,
-                    "Budget depuis la création du compte",
+                    subtitle = "Budget depuis la création du compte",
                     Color(0xffECEFF1)
                 ),
                 cardItem(
@@ -222,7 +222,7 @@ fun HomeScreen(navController: NavController) {
                     Icon(
                         imageVector = Icons.Rounded.Insights,
                         contentDescription = "Connaissances",
-                        tint = Color(0xff448AFF)
+                        tint = Color(0xff3F51B5)
                     )
                     Text(
                         text = " Statistiques",

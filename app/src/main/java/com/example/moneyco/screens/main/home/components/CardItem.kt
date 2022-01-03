@@ -45,7 +45,8 @@ fun CardItem(
             Text(
                 text = card.subtitle,
                 fontSize = 14.sp,
-                modifier = Modifier.alpha(ContentAlpha.medium)
+                modifier = Modifier.alpha(ContentAlpha.medium),
+//                color = if(card.montant < 0) Color.Red else Color.Green
             )
 
         }
