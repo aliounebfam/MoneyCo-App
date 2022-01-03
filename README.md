@@ -5,10 +5,8 @@
 
 ## Quelques captures
 
-![splash screen](https://raw.githubusercontent.com/UnityABF/MoneyCo/main/Captures%20d'%C3%A9cran/splashScreen.png)
-![splash screen](https://raw.githubusercontent.com/UnityABF/MoneyCo/main/Captures%20d'%C3%A9cran/splashScreen.png)
-![splash screen](https://raw.githubusercontent.com/UnityABF/MoneyCo/main/Captures%20d'%C3%A9cran/splashScreen.png)
-![splash screen](https://raw.githubusercontent.com/UnityABF/MoneyCo/main/Captures%20d'%C3%A9cran/splashScreen.png)
+![splash screen](https://raw.githubusercontent.com/UnityABF/MoneyCo/main/Captures%20d'%C3%A9cran/splashScreen.png = 100x100)
+
 
 
 ### Vous pouvez jeter un oeil sur les différentes captures d'écran de l'application.
