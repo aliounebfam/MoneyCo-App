@@ -13,7 +13,9 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.rounded.*
+import androidx.compose.material.icons.rounded.Insights
+import androidx.compose.material.icons.rounded.LocalGroceryStore
+import androidx.compose.material.icons.rounded.MonetizationOn
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -21,12 +23,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.AnnotatedString
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.annotation.ExperimentalCoilApi
+import com.example.moneyco.components.TopAppBarSimple
 import com.example.moneyco.data.cardItem
 import com.example.moneyco.model.FabIcon
 import com.example.moneyco.model.fab.MultiFabItem
@@ -119,38 +119,9 @@ fun HomeScreen(navController: NavController) {
         ) {}
     }
 
-    var darkMode by remember {
-        mutableStateOf(false)
-    }
-
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = {
-                    Text(
-                        text = "Accueil",
-                        maxLines = 1,
-                        overflow = TextOverflow.Ellipsis,
-                        fontWeight = FontWeight.SemiBold,
-                        fontFamily = Nunito,
-                        fontSize = 22.sp
-                    )
-                },
-                backgroundColor = MaterialTheme.colors.primaryVariant,
-                elevation = 10.dp,
-                actions = {
-                    IconButton(onClick = { darkMode = !darkMode }) {
-                        Icon(
-                            imageVector = if (!darkMode) {
-                                Icons.Rounded.DarkMode
-                            } else Icons.Rounded.LightMode,
-                            contentDescription = "dark mode",
-                            tint = Color.White,
-                            modifier = Modifier.size(30.dp)
-                        )
-                    }
-                }
-            )
+            TopAppBarSimple(text = "Accueil")
         },
         bottomBar = {
             BottomBar(navController = navController)
