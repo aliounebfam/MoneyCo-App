@@ -145,7 +145,7 @@ fun TransactionItem(
                     Spacer(modifier = Modifier.height(15.dp))
                     Text(
                         text = transaction.date,
-                        style = MaterialTheme.typography.caption,
+                        fontSize = MaterialTheme.typography.button.fontSize,
                         color = Color(0xff424242),
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,

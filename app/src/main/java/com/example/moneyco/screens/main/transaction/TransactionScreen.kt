@@ -8,11 +8,10 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.rounded.Visibility
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -27,9 +26,7 @@ import com.example.moneyco.model.MyViewModel
 import com.example.moneyco.model.SearchViewModel
 import com.example.moneyco.navigation.BottomBarScreen
 import com.example.moneyco.screens.main.revenu.components.LoadingAddTransactionItem
-import com.example.moneyco.screens.main.transaction.components.TopBarTransaction
-import com.example.moneyco.screens.main.transaction.components.TransactionItem
-import com.example.moneyco.screens.main.transaction.components.TransactionLottieFiles
+import com.example.moneyco.screens.main.transaction.components.*
 import com.example.moneyco.utils.SearchState
 import com.google.accompanist.swiperefresh.SwipeRefresh
 import com.google.accompanist.swiperefresh.SwipeRefreshIndicator
@@ -68,6 +65,10 @@ fun TransactionScreen(navController: NavController, viewModel: SearchViewModel) 
     val currentUser = Firebase.auth.currentUser
     val docRef = db.collection("users").document(currentUser!!.uid)
     var budget by remember { mutableStateOf(0) }
+    var size by remember { mutableStateOf(10) }
+    val model: MyViewModel = viewModel()
+    val isRefreshing by model.isRefreshing.collectAsState()
+
 
     Scaffold(topBar = {
         TopBarTransaction(
@@ -83,8 +84,6 @@ fun TransactionScreen(navController: NavController, viewModel: SearchViewModel) 
             },
             onSearchClicked = {
                 research = it
-//                research = it.filter { !it.isWhitespace() }
-//                Toast.makeText(context, research, Toast.LENGTH_SHORT).show()
             },
             onSearchTriggered = {
                 viewModel.updateSearchState(SearchState.OPENED)
@@ -98,9 +97,7 @@ fun TransactionScreen(navController: NavController, viewModel: SearchViewModel) 
             val mesTransactions = remember {
                 mutableStateListOf<GetMesTransactions>()
             }
-            var size by remember { mutableStateOf(10) }
-            val model: MyViewModel = viewModel()
-            val isRefreshing by model.isRefreshing.collectAsState()
+//            var size by remember { mutableStateOf(10) }
 
             JetFirestore(
                 path = {
@@ -108,7 +105,6 @@ fun TransactionScreen(navController: NavController, viewModel: SearchViewModel) 
                         .document(Firebase.auth.currentUser?.uid.toString())
                         .collection("mesTransactions")
                 },
-                limitOnSingleTimeCollectionFetch = 10,
                 onSingleTimeCollectionFetch = { value, _ ->
                     if (value != null) {
                         size = value.size()
@@ -210,18 +206,41 @@ fun TransactionScreen(navController: NavController, viewModel: SearchViewModel) 
 
                     } else {
                         Column(
-                            Modifier.fillMaxSize(), verticalArrangement = Arrangement.SpaceBetween
+                            Modifier.fillMaxSize()
 
                         ) {
+                            var mesTransactionsFilter: List<GetMesTransactions>
+                            var selection by remember {
+                                mutableStateOf(0)
+                            }
+                            TypeChipItem(
+                                onClick1 = { selection = 0 },
+                                onClick2 = {
+                                    selection = 1
+                                },
+                                onClick3 = {
+                                    selection = 2
+                                }
+                            )
+                            if (selection == 1) {
+                                mesTransactionsFilter = mesTransactions.filter {
+                                    it.type == "dépense"
+                                }
+                            } else if (selection == 2) {
+                                mesTransactionsFilter = mesTransactions.filter {
+                                    it.type == "revenu"
+                                }
+                            } else {
+                                mesTransactionsFilter = mesTransactions
+                            }
                             LazyColumn(
                                 contentPadding = PaddingValues(
-                                    top = 5.dp,
                                     start = 5.dp,
                                     end = 5.dp,
                                     bottom = 60.dp
                                 )
                             ) {
-                                items(items = mesTransactions.distinct()) { transaction ->
+                                items(items = mesTransactionsFilter.distinct()) { transaction ->
                                     TransactionItem(
                                         transaction,
                                         afficher = true,
@@ -245,43 +264,12 @@ fun TransactionScreen(navController: NavController, viewModel: SearchViewModel) 
                                             ).show()
                                         })
                                 }
-                                if (size != 1 && size != 0 && size > 10) {
-                                    item {
-                                        Row(
-                                            modifier = Modifier.padding(
-                                                start = 13.dp,
-                                                end = 13.dp,
-                                                bottom = 15.dp
-                                            )
-                                        ) {
-                                            Button(
-                                                onClick = { it.loadNextPage() },
-                                                modifier = Modifier.fillMaxWidth(),
-                                                elevation = ButtonDefaults.elevation(4.dp),
-                                                shape = RoundedCornerShape(10.dp),
-                                                colors = ButtonDefaults.buttonColors(MaterialTheme.colors.primaryVariant)
-                                            ) {
-                                                Text(
-                                                    "Voir plus ", modifier = Modifier.padding(
-                                                        vertical = 1.dp
-                                                    )
-                                                )
-                                                Icon(
-                                                    imageVector = Icons.Rounded.Visibility,
-                                                    contentDescription = "oeil"
-                                                )
-                                            }
-                                        }
-                                    }
-                                }
-
                             }
 
                         }
 
                     }
                 }
-
 
             }
         } else {
@@ -297,6 +285,7 @@ fun TransactionScreen(navController: NavController, viewModel: SearchViewModel) 
                 },
                 onSingleTimeCollectionFetch = { value, _ ->
                     if (value != null) {
+                        size = value.size()
                         for (document in value.documents) {
                             montant = document["montant"].toString()
                             type = document["type"].toString()
@@ -339,57 +328,123 @@ fun TransactionScreen(navController: NavController, viewModel: SearchViewModel) 
 
                 ) {
                 if (mesTransactionsResearch.size == 0) {
-                    LoadingAddTransactionItem(
-                        height = 150.dp
-                    )
-                } else {
-                    val resultResearch = mesTransactionsResearch.filter {
-                        it.sousCategorie.equals(research, true) ||
-                                it.categorie.equals(research, true) ||
-                                it.description.equals(research, true)
-                    }
-
-                    Column(
-                        Modifier.fillMaxSize(), verticalArrangement = Arrangement.SpaceBetween
-
-                    ) {
-                        LazyColumn(
-                            contentPadding = PaddingValues(
-                                top = 5.dp,
-                                start = 5.dp,
-                                end = 5.dp,
-                                bottom = 60.dp
-                            )
+                    if (size == 10) {
+                        LoadingAddTransactionItem(
+                            height = 150.dp
+                        )
+                    } else if (size == 0) {
+                        SwipeRefresh(
+                            state = rememberSwipeRefreshState(isRefreshing),
+                            onRefresh = { model.refresh() },
+                            indicator = { state, trigger ->
+                                SwipeRefreshIndicator(
+                                    state = state,
+                                    refreshTriggerDistance = trigger,
+                                    scale = true,
+                                    contentColor = MaterialTheme.colors.primary,
+                                    largeIndication = false,
+                                    elevation = 8.dp
+                                )
+                            }
                         ) {
-                            items(items = resultResearch.distinct()) { transaction ->
-                                TransactionItem(
-                                    transaction,
-                                    afficher = true,
-                                    onDelete = {
-                                        db.collection("users")
-                                            .document(Firebase.auth.currentUser?.uid.toString())
-                                            .collection("mesTransactions")
-                                            .document(transaction.id)
-                                            .delete()
-                                        if (transaction.type == "revenu") {
-                                            budget -= transaction.montant.toInt()
-                                        } else {
-                                            budget += transaction.montant.toInt()
+                            Column(
+                                modifier = Modifier
+                                    .fillMaxSize()
+                                    .verticalScroll(rememberScrollState()),
+                                horizontalAlignment = Alignment.CenterHorizontally,
+                                verticalArrangement = Arrangement.Center,
+                            ) {
+                                TransactionLottieFiles(
+                                    modifier = Modifier
+                                        .size(350.dp)
+                                        .clickable {
+                                            Toast
+                                                .makeText(
+                                                    context,
+                                                    "Pas de transaction effectuée",
+                                                    Toast.LENGTH_SHORT
+                                                )
+                                                .show()
                                         }
-                                        docRef.update("budget", budget.toString())
-                                        navController.navigate(BottomBarScreen.Transaction.route)
-                                        Toast.makeText(
-                                            context,
-                                            "Transaction supprimée avec succès",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                    })
+                                )
                             }
                         }
                     }
+
+                } else {
+                    val resultResearch = mesTransactionsResearch.filter {
+                        it.sousCategorie.contains(research.trim(), true) ||
+                                it.categorie.contains(research.trim(), true) ||
+                                it.description.contains(research.trim(), true) ||
+                                it.montant.contains(research.trim(), true) ||
+                                it.date.contains(research.trim(), true)
+                    }
+
+                    if (resultResearch.size != 0) {
+                        Column(
+                            Modifier.fillMaxSize(), verticalArrangement = Arrangement.SpaceBetween
+
+                        ) {
+                            LazyColumn(
+                                contentPadding = PaddingValues(
+                                    top = 5.dp,
+                                    start = 5.dp,
+                                    end = 5.dp,
+                                    bottom = 60.dp
+                                )
+                            ) {
+                                items(items = resultResearch.distinct()) { transaction ->
+                                    TransactionItem(
+                                        transaction,
+                                        afficher = true,
+                                        onDelete = {
+                                            db.collection("users")
+                                                .document(Firebase.auth.currentUser?.uid.toString())
+                                                .collection("mesTransactions")
+                                                .document(transaction.id)
+                                                .delete()
+                                            if (transaction.type == "revenu") {
+                                                budget -= transaction.montant.toInt()
+                                            } else {
+                                                budget += transaction.montant.toInt()
+                                            }
+                                            docRef.update("budget", budget.toString())
+                                            navController.navigate(BottomBarScreen.Transaction.route)
+                                            Toast.makeText(
+                                                context,
+                                                "Transaction supprimée avec succès",
+                                                Toast.LENGTH_SHORT
+                                            ).show()
+                                        })
+                                }
+                            }
+                        }
+                    } else {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .verticalScroll(rememberScrollState()),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center,
+                        ) {
+                            NoDataLottieFiles(
+                                modifier = Modifier
+                                    .size(125.dp)
+                                    .clickable {
+                                        Toast
+                                            .makeText(
+                                                context,
+                                                "Aucune transaction trouvée",
+                                                Toast.LENGTH_SHORT
+                                            )
+                                            .show()
+                                    }
+                            )
+                        }
+
+                    }
                 }
             }
-
         }
     }
 }

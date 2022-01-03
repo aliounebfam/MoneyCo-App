@@ -287,7 +287,7 @@ fun ProfilScreen(
                                 ),
                             ) {
                                 Text(
-                                    text = "Se deconnecter",
+                                    text = "Se déconnecter",
                                     modifier = Modifier.padding(
                                         top = 5.dp,
                                         bottom = 5.dp,

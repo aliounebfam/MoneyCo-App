@@ -101,6 +101,10 @@ dependencies {
     // Dépendance pour manipuler Cloud Firestore plus facilement sur Jetpack Compose
     implementation 'com.github.raipankaj:JetFirestore:1.0.3'
 
+    // Dépendance pour les graphiques sur Jetpack Compose
+    implementation 'com.github.tehras.charts:pie:beta-01'
+    implementation 'com.github.tehras.charts:line:beta-01'
+
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'

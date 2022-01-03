@@ -10,6 +10,7 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -99,7 +100,8 @@ fun SearchTopBarTransaction(
             placeholder = {
                 Text(
                     text = "Rechercher ici...",
-                    color = Color.White
+                    color = Color.White,
+                    modifier = Modifier.alpha(ContentAlpha.medium)
                 )
             },
             textStyle = TextStyle(
