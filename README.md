@@ -5,7 +5,7 @@
 
 ## Quelques captures
 
-![splash screen](https://raw.githubusercontent.com/UnityABF/MoneyCo/main/Captures%20d'%C3%A9cran/splashScreen.png = 100x100)
+![splash screen](https://raw.githubusercontent.com/UnityABF/MoneyCo/main/Captures%20d'%C3%A9cran/splashScreen.png  =100x100)
 
 
 
