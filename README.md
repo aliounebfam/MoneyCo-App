@@ -5,9 +5,7 @@
 
 ## Quelques captures
 
-<img src="https://raw.githubusercontent.com/UnityABF/MoneyCo/main/Captures%20d'%C3%A9cran/splashScreen.png" alt="splash screen" width="300" height="600">
-<img src="https://raw.githubusercontent.com/UnityABF/MoneyCo/main/Captures%20d'%C3%A9cran/splashScreen.png" alt="splash screen" width="300" height="600">
-<img src="https://raw.githubusercontent.com/UnityABF/MoneyCo/main/Captures%20d'%C3%A9cran/splashScreen.png" alt="splash screen" width="300" height="600">
+<img src="https://raw.githubusercontent.com/UnityABF/MoneyCo/main/Captures%20d'%C3%A9cran/splashScreen.png" alt="splash screen" width="300" height="600"><img src="https://raw.githubusercontent.com/UnityABF/MoneyCo/main/Captures%20d'%C3%A9cran/splashScreen.png" alt="splash screen" width="300" height="600"><img src="https://raw.githubusercontent.com/UnityABF/MoneyCo/main/Captures%20d'%C3%A9cran/splashScreen.png" alt="splash screen" width="300" height="600">
 
 
 ### Vous pouvez jeter un oeil sur les différentes captures d'écran de l'application.
