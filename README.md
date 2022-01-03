@@ -5,7 +5,7 @@
 
 ## Quelques captures
 
-<img src="https://raw.githubusercontent.com/UnityABF/MoneyCo/main/Captures%20d'%C3%A9cran/splashScreen.png" alt="splash screen" width="100" height="100">
+<img src="https://raw.githubusercontent.com/UnityABF/MoneyCo/main/Captures%20d'%C3%A9cran/splashScreen.png" alt="splash screen" width="300" height="300">
 
 
 ### Vous pouvez jeter un oeil sur les différentes captures d'écran de l'application.
