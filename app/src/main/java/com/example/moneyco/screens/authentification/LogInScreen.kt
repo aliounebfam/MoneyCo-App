@@ -77,7 +77,9 @@ fun LogInScreen(
     val state by viewModel.loadingState.collectAsState()
     val auth: FirebaseAuth = Firebase.auth
     val launcher =
-        rememberLauncherForActivityResult(contract = ActivityResultContracts.StartActivityForResult()) {
+        rememberLauncherForActivityResult(
+            contract = ActivityResultContracts.StartActivityForResult()
+        ) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(it.data)
             try {
                 val account = task.getResult(ApiException::class.java)!!
@@ -101,10 +103,10 @@ fun LogInScreen(
     var phoneNumber by remember { mutableStateOf("") }
 
     val allEmail = remember {
-        mutableStateListOf<String>("")
+        mutableStateListOf<String>()
     }
     val allNumberPhone = remember {
-        mutableStateListOf<String>("")
+        mutableStateListOf<String>()
     }
 
     JetFirestore(path = {
@@ -230,9 +232,13 @@ fun LogInScreen(
                     leadingIcon = { Icon(Icons.Filled.Phone, "phone") },
                     trailingIcon = {
                         if (phoneNumber.isNotEmpty()) {
-                            Icon(Icons.Filled.Clear, "effacer", modifier = Modifier.clickable {
-                                phoneNumber = ""
-                            })
+                            Icon(
+                                Icons.Filled.Clear,
+                                "effacer",
+                                modifier = Modifier.clickable {
+                                    phoneNumber = ""
+                                }
+                            )
                         }
                     },
                     singleLine = true,
@@ -250,23 +256,38 @@ fun LogInScreen(
                                     )
                                 val isValid = phoneUtil.isValidNumber(phone)
                                 if (isValid) {
-                                    localFocusManager.clearFocus()
-                                    val activity = (context as? Activity)
-                                    activity?.finish()
-                                    context.startActivity(
-                                        Intent(
+                                    if (
+                                        !allNumberPhone.contains(
+                                            "+${phone.countryCode}${phone.nationalNumber}"
+                                        )
+                                    ) {
+                                        Toast.makeText(
                                             context,
-                                            OtpLoginActivity::class.java
-                                        ).apply {
-                                            putExtra(
-                                                NUMBER_PHONE,
-                                                "+${phone.countryCode}${phone.nationalNumber}"
-                                            )
-                                        })
+                                            "Vous n'avez pas encore de compte\n" +
+                                                    "Veuillez vous inscrire",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
+                                    } else {
+                                        localFocusManager.clearFocus()
+                                        val activity = (context as? Activity)
+                                        activity?.finish()
+                                        context.startActivity(
+                                            Intent(
+                                                context,
+                                                OtpLoginActivity::class.java
+                                            ).apply {
+                                                putExtra(
+                                                    NUMBER_PHONE,
+                                                    "+${phone.countryCode}${phone.nationalNumber}"
+                                                )
+                                            })
+                                    }
                                 } else {
                                     Toast.makeText(
                                         context,
-                                        "Le numéro +${phone.countryCode}${phone.nationalNumber} est invalide",
+                                        "Le numéro +" +
+                                                "${phone.countryCode}${phone.nationalNumber}" +
+                                                " est invalide",
                                         Toast.LENGTH_SHORT
                                     ).show()
                                 }
@@ -326,7 +347,9 @@ fun LogInScreen(
                             } else {
                                 Toast.makeText(
                                     context,
-                                    "Le numéro +${phone.countryCode}${phone.nationalNumber} est invalide",
+                                    "Le numéro " +
+                                            "+${phone.countryCode}${phone.nationalNumber}" +
+                                            " est invalide",
                                     Toast.LENGTH_SHORT
                                 ).show()
                             }
