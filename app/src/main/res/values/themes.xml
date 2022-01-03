@@ -27,5 +27,6 @@
         <item name="windowSplashScreenBackground">@color/background_icon</item>
         <item name="windowSplashScreenAnimatedIcon">@drawable/moneyco_icon</item>
         <item name="postSplashScreenTheme">@style/Theme.MoneyCo.NoActionBar</item>
+
     </style>
 </resources>

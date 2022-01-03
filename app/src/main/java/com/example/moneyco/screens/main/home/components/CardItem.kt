@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.moneyco.data.cardItem
 import com.example.moneyco.ui.theme.Merienda
 import com.example.moneyco.ui.theme.Nunito
@@ -33,17 +34,17 @@ fun CardItem(
         ) {
             Text(
                 text = card.title,
-                fontSize = MaterialTheme.typography.h5.fontSize,
+                fontSize = MaterialTheme.typography.h6.fontSize,
                 fontFamily = Merienda
             )
             Text(
                 text = "Montant : ${card.montant}",
-                fontSize = MaterialTheme.typography.h6.fontSize,
+                fontSize = 17.sp,
                 fontFamily = Nunito
             )
             Text(
                 text = card.subtitle,
-                fontStyle = MaterialTheme.typography.overline.fontStyle,
+                fontSize = 14.sp,
                 modifier = Modifier.alpha(ContentAlpha.medium)
             )
 

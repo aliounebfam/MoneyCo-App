@@ -105,6 +105,8 @@ dependencies {
     implementation 'com.github.tehras.charts:pie:beta-01'
     implementation 'com.github.tehras.charts:line:beta-01'
 
+    implementation("ma.hu:compose-charts:0.3.2")
+
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'

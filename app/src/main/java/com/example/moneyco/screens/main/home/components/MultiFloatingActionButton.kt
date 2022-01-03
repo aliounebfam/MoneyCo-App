@@ -110,7 +110,7 @@ fun MiniFabItem(
                 color = Color.White,
                 modifier = Modifier
                     .clip(RoundedCornerShape(6.dp))
-                    .background(Color.Black.copy(alpha = 0.47f))
+                    .background(Color.Black.copy(alpha = 0.7f))
                     .padding(horizontal = 10.dp, vertical = 5.dp)
             )
         }

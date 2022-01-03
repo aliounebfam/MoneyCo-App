@@ -26,7 +26,7 @@ fun CardList(cardList: MutableList<cardItem>) {
                 RoundedCornerShape(10.dp)
             )
             .background(primary_variant.copy(alpha = 0.04f)),
-        horizontalArrangement = Arrangement.spacedBy(20.dp)
+        horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         items(items = cardList) {
             CardItem(card = it)

@@ -59,8 +59,8 @@ fun TypeChipItem(
         modifier = Modifier
             .fillMaxWidth()
             .padding(
-                top = 12.dp,
-                bottom = 8.dp,
+                top = 18.dp,
+                bottom = 15.dp,
                 start = 14.dp,
                 end = 14.dp
             )
