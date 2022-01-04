@@ -97,7 +97,7 @@ fun HomeScreen(navController: NavController) {
                     if (document["type"] == "dépense") {
                         getmontantDepenses = document["montant"].toString()
                         montantDepenses += getmontantDepenses.toInt()
-                        if (testDate.dayOfMonth == currentDate.dayOfMonth) {
+                        if (testDate.monthValue == currentDate.monthValue) {
                             montantDepensesMonth += getmontantDepenses.toInt()
                         }
                         if (testDate.year == currentDate.year) {
@@ -107,7 +107,7 @@ fun HomeScreen(navController: NavController) {
                     } else {
                         getmontantRevenus = document["montant"].toString()
                         montantRevenus += getmontantRevenus.toInt()
-                        if (testDate.dayOfMonth == currentDate.dayOfMonth) {
+                        if (testDate.monthValue == currentDate.monthValue) {
                             montantRevenusMonth += getmontantRevenus.toInt()
                         }
                         if (testDate.year == currentDate.year) {
