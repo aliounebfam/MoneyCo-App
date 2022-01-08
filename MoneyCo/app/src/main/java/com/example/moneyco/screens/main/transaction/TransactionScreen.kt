@@ -25,6 +25,7 @@ import com.example.moneyco.data.GetMesTransactions
 import com.example.moneyco.model.MyViewModel
 import com.example.moneyco.model.SearchViewModel
 import com.example.moneyco.navigation.BottomBarScreen
+import com.example.moneyco.navigation.Screen
 import com.example.moneyco.screens.main.revenu.components.LoadingAddTransactionItem
 import com.example.moneyco.screens.main.transaction.components.*
 import com.example.moneyco.utils.SearchState
@@ -207,7 +208,6 @@ fun TransactionScreen(navController: NavController, viewModel: SearchViewModel) 
                     } else {
                         Column(
                             Modifier.fillMaxSize()
-
                         ) {
                             var mesTransactionsFilter: List<GetMesTransactions>
                             var selection by remember {
@@ -262,7 +262,15 @@ fun TransactionScreen(navController: NavController, viewModel: SearchViewModel) 
                                                 "Transaction supprimée avec succès",
                                                 Toast.LENGTH_SHORT
                                             ).show()
-                                        })
+                                        },
+                                        onEdit = {
+                                            navController.navigate(
+                                                Screen.EditerTransaction.passId(
+                                                    transaction.id
+                                                )
+                                            )
+                                        }
+                                    )
                                 }
                             }
 
@@ -415,7 +423,13 @@ fun TransactionScreen(navController: NavController, viewModel: SearchViewModel) 
                                                 "Transaction supprimée avec succès",
                                                 Toast.LENGTH_SHORT
                                             ).show()
-                                        })
+                                        },
+                                        onEdit = {
+                                            Screen.EditerTransaction.passId(
+                                                transaction.id
+                                            )
+                                        }
+                                    )
                                 }
                             }
                         }

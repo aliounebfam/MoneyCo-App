@@ -2,22 +2,32 @@ package com.example.moneyco.screens.main.profil.components
 
 
 import androidx.compose.animation.ExperimentalAnimationApi
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
 import coil.annotation.ExperimentalCoilApi
 import com.example.moneyco.data.GetMesTransactions
 import com.example.moneyco.model.signOut
+import com.example.moneyco.screens.main.transaction.components.ErrorHeader
 import com.example.moneyco.ui.theme.Nunito
 import com.example.moneyco.ui.theme.noir
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -238,5 +248,111 @@ fun AlertDialogTransaction(
                 }
             }
         )
+    }
+}
+
+@Composable
+fun ErrorDialog(
+    title: String,
+    desc: String,
+    onDismiss: () -> Unit,
+    onDelete: () -> Unit
+) {
+    Dialog(
+        onDismissRequest = onDismiss
+    ) {
+        Box(
+            modifier = Modifier
+                .width(300.dp)
+                .height(400.dp)
+        ) {
+            Column(
+                modifier = Modifier
+                    .size(300.dp)
+            ) {
+                Spacer(modifier = Modifier.height(36.dp))
+                Box(
+                    modifier = Modifier
+                        .width(300.dp)
+                        .fillMaxHeight(0.89f)
+                        .background(
+                            color = Color.White,
+                            shape = RoundedCornerShape(10.dp)
+                        )
+                ) {
+                    Column(
+                        modifier = Modifier.padding(16.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Spacer(modifier = Modifier.height(24.dp))
+                        Text(
+                            text = title.uppercase(),
+                            style = TextStyle(
+                                color = Color.Black,
+                                fontSize = 18.sp,
+                                fontWeight = FontWeight.SemiBold
+                            )
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(
+                            text = desc,
+                            textAlign = TextAlign.Center,
+                            style = TextStyle(
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.Normal
+                            ),
+                            fontFamily = Nunito
+                        )
+                        Spacer(modifier = Modifier.height(24.dp))
+                        Row(
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Button(
+                                onClick = onDismiss,
+                                shape = RoundedCornerShape(0.dp),
+                                colors = ButtonDefaults.buttonColors(
+                                    backgroundColor = Color(0xFFEE4435)
+                                ),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .weight(1f)
+                                    .clip(RoundedCornerShape(5.dp))
+                            ) {
+                                Text(
+                                    text = "Annuler",
+                                    color = Color.White
+                                )
+                            }
+                            Spacer(modifier = Modifier.width(8.dp))
+                            Button(
+                                onClick = onDelete,
+                                shape = RoundedCornerShape(0.dp),
+                                colors = ButtonDefaults.buttonColors(
+                                    backgroundColor = Color(0xFF02CB6F)
+                                ),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .weight(1f)
+                                    .clip(RoundedCornerShape(5.dp))
+                            ) {
+                                Text(
+                                    text = "Oui",
+                                    color = Color.White
+                                )
+                            }
+                        }
+                    }
+                }
+            }
+            ErrorHeader(
+                modifier = Modifier
+                    .size(65.dp)
+                    .align(Alignment.TopCenter)
+                    .border(
+                        border = BorderStroke(width = 5.dp, color = Color.White),
+                        shape = CircleShape
+                    )
+            )
+        }
     }
 }

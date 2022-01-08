@@ -179,7 +179,7 @@ fun HomeScreen(navController: NavController) {
                     Color(0xffC8E6C9)
                 )
             )
-            CardList(cardList = cardList)
+            CardList(cardList = cardList, navController = navController)
             Spacer(modifier = Modifier.height(30.dp))
             Column(
                 verticalArrangement = Arrangement.SpaceBetween

@@ -270,7 +270,7 @@ fun LogInScreen(
                                     } else {
                                         localFocusManager.clearFocus()
                                         val activity = (context as? Activity)
-                                        activity?.finish()
+                                        activity?.finishAffinity()
                                         context.startActivity(
                                             Intent(
                                                 context,
@@ -332,7 +332,7 @@ fun LogInScreen(
                                     ).show()
                                 } else {
                                     val activity = (context as? Activity)
-                                    activity?.finish()
+                                    activity?.finishAffinity()
                                     context.startActivity(
                                         Intent(
                                             context,

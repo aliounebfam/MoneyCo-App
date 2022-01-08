@@ -11,12 +11,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.moneyco.data.cardItem
 import com.example.moneyco.ui.theme.primary_variant
 
 @ExperimentalMaterialApi
 @Composable
-fun CardList(cardList: MutableList<cardItem>) {
+fun CardList(cardList: MutableList<cardItem>, navController: NavController) {
     LazyRow(
         contentPadding = PaddingValues(
             5.dp
@@ -29,7 +30,7 @@ fun CardList(cardList: MutableList<cardItem>) {
         horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         items(items = cardList) {
-            CardItem(card = it)
+            CardItem(card = it, navController)
         }
     }
 }

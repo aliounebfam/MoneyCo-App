@@ -8,6 +8,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,6 +22,7 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.example.moneyco.data.GetMesTransactions
 import com.example.moneyco.screens.main.profil.components.AlertDialogTransaction
+import com.example.moneyco.screens.main.profil.components.ErrorDialog
 import com.example.moneyco.ui.theme.Nunito
 import com.example.moneyco.ui.theme.noir
 import kotlin.math.roundToInt
@@ -30,7 +32,9 @@ import kotlin.math.roundToInt
 fun TransactionItem(
     transaction: GetMesTransactions,
     afficher: Boolean = false,
-    onDelete: () -> Unit
+    onDelete: () -> Unit,
+    onEdit: () -> Unit
+
 ) {
     val cornerRadius: Dp = 15.dp
     val squareSize = 60.dp
@@ -38,6 +42,7 @@ fun TransactionItem(
     val sizePx = with(LocalDensity.current) { squareSize.toPx() }
     val anchors = mapOf(0f to 0, -sizePx to 1)
     var boolean by remember { mutableStateOf(false) }
+    var errorDialog by remember { mutableStateOf(false) }
 
     Surface(
         elevation = 3.dp,
@@ -56,28 +61,78 @@ fun TransactionItem(
                 )
                 .clip(RoundedCornerShape(cornerRadius))
                 .fillMaxWidth()
-
-                .background(Color(0xFFEF5350))
+                .background(MaterialTheme.colors.primaryVariant)
         ) {
             if (boolean) {
                 AlertDialogTransaction(transaction)
             }
 
             Box(
-                modifier = Modifier.align(
-                    Alignment.CenterEnd
-                )
+                modifier = Modifier
+                    .clip(
+                        RoundedCornerShape(
+                            topStart = cornerRadius,
+                            bottomStart = cornerRadius,
+                            topEnd = cornerRadius
+                        )
+                    )
+                    .align(
+                        Alignment.BottomEnd
+                    )
+                    .background(Color(0xFFEF5350))
             ) {
                 IconButton(
                     onClick = {
-                        onDelete()
+                        errorDialog = true
                     }
                 ) {
                     Icon(
                         Icons.Filled.Delete,
                         contentDescription = "Delete",
                         tint = Color.White,
-                        modifier = Modifier.size(30.dp)
+                        modifier = Modifier.size(25.dp)
+                    )
+
+                    if (errorDialog) {
+                        ErrorDialog(title = "Suppression",
+                            desc = "Voulez vous vraiment" +
+                                    " supprimer cette transaction !? \n Cette action est irréversible",
+                            onDismiss = {
+                                errorDialog = false
+                            },
+                            onDelete = {
+                                onDelete()
+                            }
+                        )
+                    }
+
+                }
+            }
+            Box(
+                modifier = Modifier
+                    .clip(
+                        RoundedCornerShape(
+                            topStart = cornerRadius,
+                            bottomStart = cornerRadius,
+                            bottomEnd = cornerRadius
+                        )
+                    )
+                    .align(
+                        Alignment.TopEnd
+                    )
+                    .background(Color(0xffFFB908))
+
+            ) {
+                IconButton(
+                    onClick = {
+                        onEdit()
+                    }
+                ) {
+                    Icon(
+                        Icons.Filled.Edit,
+                        contentDescription = "Edit",
+                        tint = Color.White,
+                        modifier = Modifier.size(25.dp)
                     )
                 }
             }
@@ -134,7 +189,7 @@ fun TransactionItem(
                     }
                     Spacer(modifier = Modifier.height(8.dp))
                     Text(
-                        text = "Montant: ${transaction.montant}",
+                        text = "Montant: ${transaction.montant} FCFA",
                         style = MaterialTheme.typography.body1,
                         color = noir,
                         maxLines = 1,

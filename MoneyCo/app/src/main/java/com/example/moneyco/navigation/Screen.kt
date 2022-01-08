@@ -9,12 +9,14 @@ const val DEPENSE_ROUTE = "depense"
 
 const val CATEGORIE = "categories"
 const val SOUS_CATEGORIE = "sous_categories"
-
+const val ID_DOC = "id_doc"
 
 sealed class Screen(val route: String) {
+
     object LogIn : Screen(route = "logIn_screen")
     object SignUp : Screen(route = "signUp_screen")
     object MainHome : Screen(route = "main_screen")
+
     object CategorieRevenu : Screen(route = "categorie_revenu_screen")
     object SousCategorieRevenu : Screen(route = "sous_categorie_revenu_screen/{$CATEGORIE}") {
         fun passCategorie(
@@ -23,7 +25,6 @@ sealed class Screen(val route: String) {
             return "sous_categorie_revenu_screen/$categorie"
         }
     }
-
     object AjouterRevenu : Screen(route = "ajouter_revenu_screen/{$CATEGORIE}/{$SOUS_CATEGORIE}") {
         fun passArguments(
             categorie: String,
@@ -49,6 +50,15 @@ sealed class Screen(val route: String) {
             sous_categorie: String = " "
         ): String {
             return "ajouter_depense_screen/$categorie/$sous_categorie"
+        }
+    }
+
+    object EditerTransaction :
+        Screen(route = "edit_transaction/{$ID_DOC}") {
+        fun passId(
+            idDoc: String
+        ): String {
+            return "edit_transaction/$idDoc"
         }
     }
 }

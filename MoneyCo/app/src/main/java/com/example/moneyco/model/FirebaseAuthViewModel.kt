@@ -70,7 +70,7 @@ fun signOut(context: Context) {
             exitProcess(0)
         } else {
             val activity = (context as? Activity)
-            activity?.finish()
+            activity?.finishAffinity()
             context.startActivity(Intent(context, MainActivity::class.java))
         }
     }

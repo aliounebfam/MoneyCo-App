@@ -10,19 +10,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.moneyco.data.cardItem
+import com.example.moneyco.navigation.BottomBarScreen
 import com.example.moneyco.ui.theme.Merienda
 import com.example.moneyco.ui.theme.Nunito
 
 @ExperimentalMaterialApi
 @Composable
 fun CardItem(
-    card: cardItem
+    card: cardItem, navController: NavController
 ) {
     Card(
         modifier = Modifier
             .padding(5.dp),
-        onClick = {},
+        onClick = {
+            navController.navigate(BottomBarScreen.Transaction.route)
+        },
         shape = RoundedCornerShape(8.dp),
         backgroundColor = card.color,
         elevation = 6.dp,
@@ -38,7 +42,7 @@ fun CardItem(
                 fontFamily = Merienda
             )
             Text(
-                text = "Montant : ${card.montant}",
+                text = "Montant : ${card.montant} FCFA",
                 fontSize = 17.sp,
                 fontFamily = Nunito
             )

@@ -326,7 +326,7 @@ fun SignUpScreen(
                                     } else {
                                         localFocusManager.clearFocus()
                                         val activity = (context as? Activity)
-                                        activity?.finish()
+                                        activity?.finishAffinity()
                                         context.startActivity(
                                             Intent(
                                                 context,
@@ -388,7 +388,7 @@ fun SignUpScreen(
                                     ).show()
                                 } else {
                                     val activity = (context as? Activity)
-                                    activity?.finish()
+                                    activity?.finishAffinity()
                                     context.startActivity(
                                         Intent(
                                             context,

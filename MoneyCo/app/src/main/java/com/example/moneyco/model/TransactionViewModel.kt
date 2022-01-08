@@ -16,3 +16,18 @@ fun enregistrerTransactions(
         .collection("mesTransactions")
         .add(transactions)
 }
+
+
+fun editerTransaction(
+    transactions: MesTransactions,
+    docId: String
+) {
+    val db = Firebase.firestore
+    val currentUser = Firebase.auth.currentUser
+    db.collection("users")
+        .document(currentUser!!.uid)
+        .collection("mesTransactions")
+        .document(docId)
+        .set(transactions)
+//        .add()
+}

@@ -29,7 +29,6 @@ fun CategorieDepenseScreen(navController: NavController) {
     }
 
     val iconsCategorieDepense = listOf(
-
         Icons.Outlined.Subscriptions,
         Icons.Outlined.CardGiftcard,
         Icons.Outlined.HomeWork,
@@ -40,10 +39,13 @@ fun CategorieDepenseScreen(navController: NavController) {
         Icons.Outlined.Paid,
         Icons.Outlined.Apartment,
         Icons.Outlined.Celebration,
+        Icons.Outlined.VolunteerActivism,
         Icons.Outlined.PointOfSale,
         Icons.Outlined.HealthAndSafety,
+        Icons.Outlined.Toll,
         Icons.Outlined.Traffic,
         Icons.Outlined.TimeToLeave,
+        Icons.Outlined.LocalConvenienceStore,
         Icons.Outlined.HelpCenter,
     )
 
