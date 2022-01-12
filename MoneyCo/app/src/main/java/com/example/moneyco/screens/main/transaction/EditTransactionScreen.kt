@@ -40,7 +40,7 @@ fun EditTransactionScreen(navController: NavController, idDoc: String) {
     var montant by remember { mutableStateOf("") }
     var type by remember { mutableStateOf("") }
     var categorie by remember { mutableStateOf("") }
-    var sous_categorie by remember { mutableStateOf("") }
+    var sous_categorie by remember { mutableStateOf(" ") }
 
     val (focusRequester) = FocusRequester.createRefs()
 
@@ -63,7 +63,7 @@ fun EditTransactionScreen(navController: NavController, idDoc: String) {
                 montant = value?.get("montant").toString()
                 type = value?.get("type").toString()
                 categorie = value?.get("categorie").toString()
-                sous_categorie = value?.get("sous_categorie").toString()
+                sous_categorie = value?.get("sousCategorie").toString()
             }
 
         ) {

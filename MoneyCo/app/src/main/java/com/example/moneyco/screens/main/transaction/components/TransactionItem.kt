@@ -37,7 +37,7 @@ fun TransactionItem(
 
 ) {
     val cornerRadius: Dp = 15.dp
-    val squareSize = 60.dp
+    val squareSize = 80.dp
     val swipeAbleState = rememberSwipeableState(initialValue = 0)
     val sizePx = with(LocalDensity.current) { squareSize.toPx() }
     val anchors = mapOf(0f to 0, -sizePx to 1)

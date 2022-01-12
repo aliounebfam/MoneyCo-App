@@ -1,6 +1,12 @@
 package com.example.moneyco.screens.main.home
 
 import android.annotation.SuppressLint
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
 import android.os.Build
 import android.widget.Toast
 import androidx.annotation.RequiresApi
@@ -24,8 +30,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.unit.dp
+import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.navigation.NavController
 import coil.annotation.ExperimentalCoilApi
+import com.example.moneyco.MainActivity
+import com.example.moneyco.R
 import com.example.moneyco.components.TopAppBarSimple
 import com.example.moneyco.data.cardItem
 import com.example.moneyco.model.FabIcon
@@ -74,6 +84,11 @@ fun HomeScreen(navController: NavController) {
     var montantRevenusYear by remember { mutableStateOf(0) }
     val context = LocalContext.current
     val currentDate = LocalDate.now()
+    val channelId = "MoneyCo"
+    val notificationId = 0
+
+
+
     JetFirestore(
         path = {
             collection("users")
@@ -118,7 +133,9 @@ fun HomeScreen(navController: NavController) {
             }
         ) {}
     }
-
+    LaunchedEffect(key1 = budget, block = {
+        createNotificationChannel(channelId, context)
+    })
     Scaffold(
         topBar = {
             TopAppBarSimple(text = "Accueil")
@@ -159,6 +176,17 @@ fun HomeScreen(navController: NavController) {
                     12.dp
                 ),
         ) {
+
+            if (budget < 0) {
+                simpleNotification(
+                    context,
+                    channelId,
+                    notificationId,
+                    "Attention !",
+                    "Votre budget est actuellement en déficit."
+                )
+            }
+
             val cardList = mutableListOf(
                 cardItem(
                     "Mon budget",
@@ -412,5 +440,61 @@ fun HomeScreen(navController: NavController) {
             }
 
         }
+    }
+}
+
+@ExperimentalCoilApi
+@DelicateCoroutinesApi
+@ExperimentalComposeUiApi
+@ExperimentalMaterialApi
+@ExperimentalAnimationApi
+fun simpleNotification(
+    context: Context,
+    nomAppli: String,
+    notificationId: Int,
+    textTitle: String,
+    textContent: String,
+    priority: Int = NotificationCompat.PRIORITY_MAX
+) {
+    val color = 0xffFFD559.toInt()
+    val intent = Intent(context, MainActivity::class.java).apply {
+        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+    }
+    val pendingIntent: PendingIntent = PendingIntent.getActivity(
+        context,
+        0,
+        intent,
+        0
+    )
+    val builder = NotificationCompat.Builder(context, nomAppli)
+        .setAutoCancel(true)
+        .setSmallIcon(R.drawable.moneyco_icon)
+        .setContentTitle(textTitle)
+        .setContentText(textContent)
+        .setPriority(priority)
+        .setContentIntent(pendingIntent)
+        .setStyle(
+            NotificationCompat.BigTextStyle()
+                .bigText(textContent)
+        )
+        .setVisibility(Notification.VISIBILITY_PUBLIC)
+        .setOnlyAlertOnce(true)
+    with(NotificationManagerCompat.from(context)) {
+        notify(notificationId, builder.build())
+    }
+}
+
+@SuppressLint("ServiceCast", "WrongConstant")
+fun createNotificationChannel(channelId: String, context: Context) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        val name = "MoneyCo"
+        val desc = "Application de gestion de budget personnel"
+        val importance = NotificationManager.IMPORTANCE_MAX
+        val channel = NotificationChannel(channelId, name, importance).apply {
+            description = desc
+        }
+        val notificationManager: NotificationManager =
+            context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.createNotificationChannel(channel)
     }
 }

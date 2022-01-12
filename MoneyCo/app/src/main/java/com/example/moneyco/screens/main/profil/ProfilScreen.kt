@@ -74,7 +74,6 @@ fun ProfilScreen(
     val viewModel: MyViewModel = viewModel()
     val isRefreshing by viewModel.isRefreshing.collectAsState()
 
-
     Scaffold(
         topBar = {
             TopAppBarSimple(text = "Mon profil")
@@ -307,7 +306,6 @@ fun ProfilScreen(
             }
         }
     )
-
 }
 
 
