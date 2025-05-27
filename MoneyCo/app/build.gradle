@@ -1,7 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'com.google.gms.google-services'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -65,7 +66,6 @@ dependencies {
     // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.5.0")
 
     // Dépendance Navigation pour jetpack compose
     implementation "androidx.navigation:navigation-compose:2.4.0-beta02"
@@ -79,17 +79,18 @@ dependencies {
     // Dépendance pour SplashScreen
     implementation 'androidx.core:core-splashscreen:1.0.0-alpha01'
 
-    // Importation de BoM pour la platforme Firebase
-    implementation platform('com.google.firebase:firebase-bom:29.0.0')
-    // Dépendance Firebase authentification
-    implementation 'com.google.firebase:firebase-auth-ktx'
-    implementation 'com.google.android.gms:play-services-auth:20.0.0'
-    // Déclaration dépendance pour le 'Cloud Firestore Library'
-    implementation 'com.google.firebase:firebase-firestore-ktx'
-    implementation 'com.google.firebase:firebase-analytics-ktx'
+    // Room
+    implementation "androidx.room:room-runtime:2.4.0"
+    kapt "androidx.room:room-compiler:2.4.0"
+    implementation "androidx.room:room-ktx:2.4.0"
 
-    // Bibliothèque pour analyser, formater et valider les numéros de téléphone internationaux.
-    implementation 'io.michaelrocks:libphonenumber-android:8.10.16'
+    // Hilt for Dependency Injection
+    implementation "com.google.dagger:hilt-android:2.40"
+    kapt "com.google.dagger:hilt-android-compiler:2.40"
+    implementation "androidx.hilt:hilt-navigation-compose:1.0.0-alpha03"
+
+    // Encrypted Shared Preferences
+    implementation "androidx.security:security-crypto:1.1.0-alpha03"
 
     //Une bibliothèque de chargement d'images pour Android soutenue par Kotlin Coroutines
     implementation("io.coil-kt:coil-compose:1.4.0")
@@ -97,9 +98,6 @@ dependencies {
     // Une bibliothèque qui fournit un modèle UX de balayage pour
     // rafraîchir, similaire au SwipeRefreshLayout d'Android.
     implementation 'com.google.accompanist:accompanist-swiperefresh:0.19.0'
-
-    // Dépendance pour manipuler Cloud Firestore plus facilement sur Jetpack Compose
-    implementation 'com.github.raipankaj:JetFirestore:1.0.3'
 
     // Dépendance pour les graphiques sur Jetpack Compose
     implementation 'com.github.tehras.charts:pie:beta-01'
